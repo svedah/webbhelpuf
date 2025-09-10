@@ -1,0 +1,41 @@
+Kunds (UF-företags) perspektiv:
+
+Kunna visa upp sina varor och tjänster.
+Kunna lägga till vara
+Kunna lägga till pris och fraktpris på vara
+Kunna lägga till bilder på vara
+Kunna välja primära bilden för vara
+Kunna ta bort vara
+Kunna redigera vara
+Kunna redigera saldo, avaktivera saldo för vara.
+Kunna markera vara som slutsåld
+
+Grundfraktpris för ett paket 
+
+
+
+Kunna skriva in kod i ruta för att få fram konsumentadress och vilka varor de köpt etc.
+
+
+Inställningssida UF-företag:
+
+    Ladda upp egen logo
+    Sätta namn på butiken
+    Välja eget färgtema
+    Kunna skriva in sitt swishnummer för UF-företaget
+    
+
+
+
+Konsumenters perspektiv:
+
+Kunna sortera pris naturlig/stigande/fallande.
+Kunna betala de varor de lagt i varukorg
+
+
+Vårt perspektiv:
+
+Exempelvideos
+Tjänsten webbutik
+
+    Vad butiken heter
