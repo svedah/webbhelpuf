@@ -1,8 +1,14 @@
-﻿@{
+﻿@model webbhelpuf.ViewModels.HomeViewModel;
+@{
     ViewData["Title"] = "Home Page";
+    ViewData["SubDomainCSS"] = Model.SubDomain + ".css";
 }
 
 <div class="text-center">
     <h1 class="display-4">Välkommen</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+<h2>UF-Företag: @Model.SubDomain</h2>
 </div>

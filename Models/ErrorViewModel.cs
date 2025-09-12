@@ -1,4 +1,4 @@
-namespace webbhelpuf.Models;
+namespace webbhelpuf.ViewModels;
 
 public class ErrorViewModel
 {
