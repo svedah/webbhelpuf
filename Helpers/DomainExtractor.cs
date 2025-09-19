@@ -10,7 +10,7 @@ static public class DomainHelper
     /// Extraherar och returnerar subdomän
     /// Exempel: www.example.com -> www 
     ///</summary>
-    static public string ExtractHost(BeService beService)
+    static public string ExtractSubDomain(BeService beService)
     {
         string domain = string.Empty;
 
@@ -32,7 +32,7 @@ static public class DomainHelper
 
     static public Guid GetSubDomainId(BeService beService)
     {
-        string host = ExtractHost(beService);
+        string host = ExtractSubDomain(beService);
         //TODO: fetch id from db
         return Guid.Empty;
     }

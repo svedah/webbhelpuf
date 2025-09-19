@@ -1,0 +1,18 @@
+﻿@using webbhelpuf.Shared;
+@model webbhelpuf.ViewModels.HomeViewModel;
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Välkommen</h1>
+    <h2>Layout3</h2>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+<h2>UF-Företag: @Model.SubDomain</h2>
+</div>
+
+<div>
+    <img src="/qr/png/@Model.QRTestURL" alt="" />
+</div>

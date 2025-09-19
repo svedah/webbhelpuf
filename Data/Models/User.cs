@@ -4,5 +4,6 @@ namespace webbhelpuf.Data.Models;
 
 public class User : IdentityUser
 {
-    public required Shop Shop { get; set; }
+    public required virtual Shop Shop { get; set; }
 }
+

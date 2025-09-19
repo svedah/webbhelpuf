@@ -4,7 +4,7 @@ public class Customer
 {
     public Guid Id { get; set; }
 
-    public required Cart Cart { get; set; }
-    public required CustomerInfo CustomerInfo {get;set;}
+    public required virtual Cart Cart { get; set; }
+    public required virtual CustomerInfo CustomerInfo {get;set;}
 
 }

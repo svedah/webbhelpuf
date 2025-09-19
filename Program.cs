@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using webbhelpuf.Data;
+using webbhelpuf.Data.Seed;
 using webbhelpuf.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager()
+                .AddDefaultTokenProviders();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -32,6 +37,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 // builder.Services.AddScoped<IOperationScoped, Operation>();
 // builder.Services.AddSingleton<IOperationSingleton, Operation>();
 // builder.Services.AddTransient<BeService, BeService>();
+
+
 builder.Services.AddScoped<BeService, BeService>();
 
 var app = builder.Build();
@@ -50,7 +57,7 @@ else
 
 // app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseResponseCaching();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -64,3 +71,4 @@ app.MapRazorPages()
    .WithStaticAssets();
 
 app.Run();
+

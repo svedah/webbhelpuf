@@ -9,7 +9,7 @@ public class ShopItem
     // public int ShippingPrice { get; set; }
     public required string Description { get; set; }
 
-    public required Shop Shop { get; set; }
-    public required Image PrimaryImage { get; set; }
-    public required HashSet<Image> Images { get; set; }
+    public required virtual Shop Shop { get; set; }
+    public required virtual Image PrimaryImage { get; set; }
+    public required virtual HashSet<Image> Images { get; set; }
 }

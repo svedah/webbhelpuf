@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - webbhelpuf</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/webbhelpuf.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/@ViewData["SubDomainCSS"]" />
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <link rel="stylesheet" href="/css/themes/@ViewData["ShopTheme"]" asp-append-version="true" />
+    <link rel="stylesheet" href="/css/bootstrap.notheme.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+    @* <link rel="stylesheet" href="~/webbhelpuf.styles.css" asp-append-version="true" /> *@
     <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="~/js/site.js" asp-append-version="true" defer></script>

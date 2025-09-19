@@ -1,0 +1,12 @@
+#Installera mvc-projekt med databas
+dotnet new mvc --auth individual
+
+#Installera EF
+dotnet tool install --global dotnet-ef
+
+#Skapa en migrering (när man skapat upp sin första applicationdbcontext)
+dotnet ef migrations add initialcreate
+
+#Uppdatera databas med migrering (när man redigerat sin applicationdbcontext)
+dotnet ef migrations add uniktnamn
+dotnet ef database update 

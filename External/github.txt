@@ -1,0 +1,12 @@
+
+
+
+https://github.com/manuelbl/QrCodeGenerator
+https://www.nuget.org/packages/Net.Codecrete.QrCodeGenerator
+
+
+
+https://github.com/mono/SkiaSharp
+https://www.nuget.org/packages/SkiaSharp/
+
+
