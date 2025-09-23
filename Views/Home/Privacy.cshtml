@@ -1,8 +1,7 @@
 ﻿@model webbhelpuf.ViewModels.HomeViewModel;
 @{
     ViewData["Title"] = "Privacy Policy";
-    ViewData["SubDomainCSS"] = Model.SubDomain + ".css";
+    ViewData["ShopTheme"] = Model.ShopTheme + ".css";
+    string partialView = "_View_Home_Privacy_" + Model.ShopLayout;
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>Use this page to detail your site's privacy policy.</p>
+<partial name=@partialView model="Model" />

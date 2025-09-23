@@ -37,12 +37,12 @@ public class HomeController : Controller
         return View(vm);
     }
 
-    [Authorize(Roles = "Administrator")]
-    public IActionResult Admintest()
-    {
-        var vm = new HomeViewModel(_beService);
-        return View(vm);
-    }
+    // [Authorize(Roles = "Administrator")]
+    // public IActionResult Admintest()
+    // {
+    //     var vm = new HomeViewModel(_beService);
+    //     return View(vm);
+    // }
 
     public IActionResult Cookies()
     {

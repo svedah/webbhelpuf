@@ -1,0 +1,7 @@
+@using webbhelpuf.Data.Models
+@model List<ShopItem>
+
+@foreach(ShopItem item in Model)
+{
+    <partial name="_ShopItem_Ordered_Card" model="item" />
+}

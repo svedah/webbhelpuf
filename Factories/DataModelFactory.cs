@@ -170,6 +170,7 @@ public class DataModelFactory
             ItemsAvailable = Math.Max(1, itemsavailable),
             Price = Math.Max(1, price),
             Description = description ?? "",
+            Order = 1,
             Shop = shop,
             PrimaryImage = primaryimage,
             Images = new HashSet<Image>(images)
@@ -189,7 +190,8 @@ public class DataModelFactory
         string description,
         string layout,
         string theme,
-        ShopContactInfo shopcontactinfo
+        ShopContactInfo shopcontactinfo,
+        Image logoimage
     )
     {
         var id = Guid.NewGuid();
@@ -198,10 +200,12 @@ public class DataModelFactory
         {
             Id = id,
             Title = title,
+            SwishNumber = "+461234567890",
             BaseShippingPrice = Math.Max(0, baseshippingprice),
             Description = description,
             Theme = theme ?? "standard",
             Layout = layout ?? "standard",
+            LogoImage = logoimage,
             ContactInfo = shopcontactinfo
         };
 

@@ -1,6 +1,7 @@
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 using webbhelpuf.Data;
 using webbhelpuf.Data.Models;
 using webbhelpuf.Services;
@@ -35,19 +36,29 @@ public class ShopFactory
         bool output = false;
         if (_db.Shops.Where(e => e.Prefix == domain).Any())
         {
-            ;
             shop = _db.Shops
                 .Where(e => e.Prefix == domain)
                 .Include(e => e.Settings)
                 .Include(e => e.Settings.ContactInfo)
-                .Include(e => e.Items)
+                .Include(e => e.Settings.ContactInfo.SocialMedias)
+                .Include(e => e.Settings.LogoImage)
                 .First(e => e.Prefix == domain);
+
+            shop.Items = GetShopItems(shop);
             output = true;
         }
         else
         {
             shop = CreateDummyShop();
         }
+        return output;
+    }
+
+    private HashSet<ShopItem> GetShopItems(Shop shop)
+    {
+        var output = _db.ShopItems.Where(e => e.Shop == shop)
+                                .Include(e => e.PrimaryImage)
+                                .Include(e => e.Images).ToHashSet();
         return output;
     }
 
@@ -59,10 +70,16 @@ public class ShopFactory
             Settings = new ShopSetting
             {
                 Title = "Dummy",
+                SwishNumber = "+460000000000",
                 BaseShippingPrice = 0,
                 Description = "Dummy",
                 Layout = "Standard",
                 Theme = "Standard",
+                LogoImage = new Image
+                {
+                    AltText = "Dummy Logo",
+                    Filename = "/img/No_Image_Available.jpeg"
+                },
                 ContactInfo = new ShopContactInfo
                 {
                     Email = "dummy@dummy.com",

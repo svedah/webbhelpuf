@@ -1,0 +1,20 @@
+@model webbhelpuf.Data.Models.ShopItem
+@{
+    @* string link = @Model.ItemsAvailable == 0 ? "#" : "/Article/View/" + @Model.Id; *@
+}
+
+<shopitem>
+    <article>
+        <a href="/Article/View/@Model.Id" >
+            <figure>
+                <img src="/img/items/@Model.PrimaryImage.Filename" alt="@Model.PrimaryImage.AltText" />
+            </figure>
+            <h3>@Model.Title</h3>
+            <p>@Model.Description</p>
+            <section class="d-flex justify-content-between">
+                <div>Antal: @Model.ItemsAvailable</div>
+                <div>Pris: @Model.Price SEK</div>
+            </section>
+        </a>
+    </article>
+</shopitem>

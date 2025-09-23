@@ -1,0 +1,17 @@
+@using webbhelpuf.Data.Models
+@model ShopItem
+
+<div style="border: 1px">
+<h2>@Model.Title</h2>
+<p>@Model.Description</p>
+<div>@Model.ItemsAvailable</div>
+<div>@Model.Price</div>
+<div>
+    <img    src="/img/items/@Model.PrimaryImage.Filename" 
+            alt="@Model.PrimaryImage.AltText" />
+
+</div>
+
+
+
+</div>

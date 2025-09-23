@@ -1,4 +1,5 @@
-﻿@using webbhelpuf.Shared;
+﻿@using webbhelpuf.Data.Models;
+@using webbhelpuf.Shared;
 @model webbhelpuf.ViewModels.HomeViewModel;
 
 
@@ -10,9 +11,58 @@
 </div>
 
 <div>
-<h2>UF-Företag: @Model.SubDomain</h2>
+    UF-Företag subdomän: @Model.SubDomain
+</div>
+
+<div>
+    Titel: @Model.Shop.Settings.Title
+</div>
+
+<div>
+    Beskrivning: @Model.Shop.Settings.Description
+</div>
+
+<div>
+    Logo: @Model.Shop.Settings.LogoImage.Filename
+    <img    src="/img/logo/@Model.Shop.Settings.LogoImage.Filename" 
+            alt="@Model.Shop.Settings.LogoImage.AltText" />
+</div>
+
+
+<fieldset>
+    <legend>Varor & Tjänster</legend>
+    <div class="d-flex">
+        @foreach(ShopItem shopitem in Model.Shop.Items)
+        {
+            <partial name="_ShopItem_Card" model="shopitem" />
+        }
+    </div>
+</fieldset>
+
+<div>
+    <partial name="_ShopItems_OrderedListContainer" model="@Model.ItemsBySelectedOrder" />
+</div>
+
+<div>
+    <p>Facebook: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.Facebook" title="Vår sida på Facebook">FaceBook</a></p>
+    <p>Instagram: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.Instagram" title="Vår sida på Instagram">Instagram</a></p>
+    <p>LinkedIn: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.LinkedIn" title="Vår sida på LinkedIn">LinkedIn</a></p>
+    <p>TikTok: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.TikTok" title="Vår sida på TikTok">TikTok</a></p>
+    <p>YouTube: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.YouTube" title="Vår sida på TikTok">YouTube</a></p>
 </div>
 
 <div>
     <img src="/qr/png/@Model.QRTestURL" alt="" />
 </div>
+
+
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-light">Light</button>
+<button type="button" class="btn btn-dark">Dark</button>
+
+<a href="#" class="btn btn-primary">Link Button</a>

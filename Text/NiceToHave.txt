@@ -1,1 +1,4 @@
 Bildkarusell på varuartikel (vid swipe på bild)
+
+Om oss-sida
+FAQ-sida

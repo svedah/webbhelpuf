@@ -43,8 +43,13 @@ public class Seeder
 
             var shopSocialMedia = SeedShopSocialMedia();
             var shopContactInfo = SeedShopContactInfo(shopSocialMedia);
-            var shopSetting = SeedShopSetting(shopContactInfo);
+            var logo = SeedShopLogo();
+            var shopSetting = SeedShopSetting(shopContactInfo, logo);
             var shop = SeedShop(shopSetting);
+            var shopitem1 = SeedShopItem1(shop);
+            var shopitem2 = SeedShopItem2(shop);
+            var shopitems = new List<ShopItem> { shopitem1, shopitem2 };
+            SeedItemsToShop(shop, shopitems);
 
             var user = SeedUser(shop);//TODO
             ctx.SaveChanges();
@@ -116,7 +121,7 @@ public class Seeder
 
     }
 
-    private ShopSetting SeedShopSetting(ShopContactInfo sci)
+    private ShopSetting SeedShopSetting(ShopContactInfo sci, Image logo)
     {
         return new ShopSetting
         {
@@ -124,9 +129,11 @@ public class Seeder
             BaseShippingPrice = 0,
             Description = "WebbHelp UF - hjälper ditt UF-företag att starta en webbshop",
             ContactInfo = sci,
+            SwishNumber = "+461234567890",
             Title = "WebbHelp",
             Layout = "Standard",
-            Theme = "Standard"
+            Theme = "Standard",
+            LogoImage = logo
         };
     }
 
@@ -137,6 +144,62 @@ public class Seeder
             Email = "em@il.com",
             MobileNumber = string.Empty,
             SocialMedias = ssm
+        };
+    }
+
+    private void SeedItemsToShop(Shop shop, List<ShopItem> shopitems)
+    {
+        foreach (ShopItem item in shopitems)
+        {
+            shop.Items.Add(item);
+        }
+    }
+
+    private ShopItem SeedShopItem1(Shop shop)
+    {
+        return new ShopItem
+        {
+            Title = "Item 1",
+            Description = "Beskrivning Item 1",
+            Shop = shop,
+            Price = 200,
+            ItemsAvailable = 1000,
+            Order = 1,
+            PrimaryImage = new Image
+            {
+                AltText = "Bild Item 1",
+                Filename = "00000000-0000-0000-0000-000000000000.jpeg"
+            },
+            Images = new HashSet<Image>()
+        };
+    }
+
+    private ShopItem SeedShopItem2(Shop shop)
+    {
+        return new ShopItem
+        {
+            Title = "Item 2",
+            Description = "Beskrivning Item 2",
+            Shop = shop,
+            Price = 300,
+            ItemsAvailable = 1000,
+            Order = 2,
+            PrimaryImage = new Image
+            {
+                AltText = "Bild Item 2",
+                Filename = "00000000-0000-0000-0000-000000000000.jpeg"
+            },
+            Images = new HashSet<Image>()
+        };
+    }
+
+    private Image SeedShopLogo()
+    {
+        return new Image
+        {
+            Id = Guid.NewGuid(),
+            AltText = "WebbHelp Logo",
+            Filename = "WebbHelp_Logo.jpeg"
         };
     }
 

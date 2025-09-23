@@ -1,1 +1,5 @@
 Ingen underdomän får ha "."-tecken i namnet (Helpers/DomainExtractor.cs)
+
+
+#stäng av användarregistrering
+dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"

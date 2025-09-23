@@ -8,6 +8,7 @@ public class BeService
     public readonly ApplicationDbContext DbContext;
     public readonly UserManager<IdentityUser> UserManager;
     public readonly RoleManager<IdentityRole> RoleManager;
+    public readonly SignInManager<IdentityUser> SignInManager;
     public readonly IHttpContextAccessor HttpContextAccessor;
     public readonly IServiceProvider ServiceProvider;
     public readonly IWebHostEnvironment WebHostEnvironment;
@@ -17,6 +18,7 @@ public class BeService
     (
         ApplicationDbContext dbContext,
         UserManager<IdentityUser> userManager,
+        SignInManager<IdentityUser> signInManager,
         RoleManager<IdentityRole> roleManager,
         IHttpContextAccessor httpContextAccessor,
         IWebHostEnvironment iWebHostEnvironment,
@@ -25,6 +27,7 @@ public class BeService
     {
         DbContext = dbContext;
         UserManager = userManager;
+        SignInManager = signInManager;
         RoleManager = roleManager;
         HttpContextAccessor = httpContextAccessor;
         WebHostEnvironment = iWebHostEnvironment;

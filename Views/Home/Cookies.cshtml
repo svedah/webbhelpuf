@@ -1,10 +1,32 @@
 ﻿@model webbhelpuf.ViewModels.HomeViewModel;
 @{
     ViewData["Title"] = "cookies";
-    ViewData["SubDomainCSS"] = Model.SubDomain + ".css";
+    ViewData["ShopTheme"] = Model.ShopTheme + ".css";
+    string partialView = "_View_Home_Cookies_" + Model.ShopLayout;
 }
-<h1>@ViewData["Title"]</h1>
-
+<h1>Kakor</h1>
+<br />
+<h2>Den här sidan använder cookies (sv. kakor).</h2>
 <p>
-    Den här sidan använder cookies.
+    Kakor hjälper webbplatser att lagra information om besökare.
+    Mer generellt är kakor ett sätt att upprätthålla kontinuitet 
+    i en webbapplikation - det vill säga att utföra tillståndshantering. 
+    Förutom den korta tid då de faktiskt utbyter information är 
+    webbläsaren och webbservern frånkopplade. Varje begäran en 
+    användare gör till en webbserver behandlas oberoende av andra 
+    begäranden. Många gånger är det dock användbart för webbservern 
+    att känna igen användare när de begär en sida. 
+    Till exempel håller webbservern på en shoppingwebbplats reda 
+    på enskilda kunder så att webbplatsen kan hantera kundvagnar 
+    och annan användarspecifik information. 
+    En kaka fungerar därför som ett slags visitkort och presenterar 
+    relevant identifiering som hjälper en applikation att veta hur den ska gå vidare.
+</p>
+<h2>Hur vi använder kakor</h2>
+<p>
+    Vi använder endast cookies om du lägger till en vara i 
+    varukorgen eller genomför ett köp. 
+    Cookien sparas då i din webbläsare för att koppla din 
+    varukorg och dina adressuppgifter till ditt besök. 
+    Om du bara besöker sidan utan att handla, sparas ingen cookie.
 </p>

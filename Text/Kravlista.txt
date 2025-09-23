@@ -1,5 +1,8 @@
 Kunds (UF-företags) perspektiv:
 
+
+
+
 Kunna visa upp sina varor och tjänster.
 Kunna lägga till vara
 Kunna lägga till pris och fraktpris på vara

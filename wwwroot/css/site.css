@@ -29,3 +29,40 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+
+/* BEGIN ShopItem_Card */
+shopitem {
+    border: 1px solid black;
+    display: block;
+    margin: 1rem;
+    max-width: 18rem;
+    min-width: 18rem;
+    width: 18rem;
+    
+    article {
+        user-select: none;
+        a {
+            color: inherit;
+            text-decoration: inherit;
+            figure {
+                img {
+                    max-width: 100%;
+                }
+            }
+            h3 {
+                font-size: 1.25rem;
+                text-align: center;
+            }
+            p {
+                margin: 0.5rem 0.5rem 1rem 0.5rem;
+            }
+            section {
+                background-color: #eee;
+                font-size: 1.125rem;
+                padding: 0.125rem 0.5rem;
+            }
+        }
+    }
+}
+/* END ShopItem_Card */
