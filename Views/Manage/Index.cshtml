@@ -5,7 +5,19 @@
     ViewData["ShopTheme"] = Model.ShopTheme + ".css";
 }
 <h1>Administrera</h1>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+
+<a asp-controller="Manage" asp-action="Index">Start</a>
+<br />
+<a asp-controller="Manage" asp-action="Settings">Inställningar</a>
+<br />
+<a asp-controller="Manage" asp-action="Customers">Kunder</a>
+<br />
+<a asp-controller="Manage" asp-action="Items">Varor</a>
+<br />
+<a asp-controller="Manage" asp-action="Purchases">Köp</a>
+<br />
+
+@* <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
         <button class="nav-link active" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="true">Inställningar</button>
     </li>
@@ -36,4 +48,4 @@
         <h2>Köp</h2>
         <partial name="_Manage_Purchases" model="Model" />
     </div>
-</div>
+</div> *@

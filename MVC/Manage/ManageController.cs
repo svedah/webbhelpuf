@@ -25,18 +25,41 @@ public class ManageController : Controller
 
     public IActionResult Index()
     {
-        Seeder.SeedOnEmpty(_beService);//TODO: move to correct location
+        // Seeder.SeedOnEmpty(_beService);//TODO: move to correct location
 
-        var subdomain = Helpers.DomainHelper.ExtractSubDomain(_beService);
-        if (!_beService.DbContext.Shops.Where(e => e.Prefix == subdomain).Any())
-        {
-            //TODO: remove port on release
-            return Redirect("//" + Constants.DEFAULTDOMAIN + "." + Constants.DOMAINNAME + ":5277/");
-        }
+        // var subdomain = Helpers.DomainHelper.ExtractSubDomain(_beService);
+        // if (!_beService.DbContext.Shops.Where(e => e.Prefix == subdomain).Any())
+        // {
+        //     //TODO: remove port on release
+        //     return Redirect("//" + Constants.DEFAULTDOMAIN + "." + Constants.DOMAINNAME + ":5277/");
+        // }
 
         var vm = new ManageViewModel(_beService);
         return View(vm);
     }
 
+    public IActionResult Customers()
+    {
+        var vm = new ManageViewModel(_beService);
+        return View(vm);
+    }
+
+    public IActionResult Items()
+    {
+        var vm = new ManageViewModel(_beService);
+        return View(vm);
+    }
+
+    public IActionResult Purchases()
+    {
+        var vm = new ManageViewModel(_beService);
+        return View(vm);
+    }
+
+    public IActionResult Settings()
+    {
+        var vm = new ManageViewModel(_beService);
+        return View(vm);
+    }
 
 }

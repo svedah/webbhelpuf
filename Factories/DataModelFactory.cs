@@ -62,7 +62,8 @@ public class DataModelFactory
         {
             Id = id,
             Cart = cart,
-            CustomerInfo = customerInfo
+            CustomerInfo = customerInfo,
+            CustomerState = webbhelpuf.Enums.CustomerStateEnum.test
         };
 
         _srv.DbContext.Customers.Add(customer);
