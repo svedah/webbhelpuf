@@ -30,7 +30,7 @@ public class HomeController : Controller
         if (!_beService.DbContext.Shops.Where(e => e.Prefix == subdomain).Any())
         {
             //TODO: remove port on release
-            // return Redirect("//" + Constants.DEFAULTDOMAIN + "." + Constants.DOMAINNAME + ":5277/");
+            return Redirect("//" + Constants.DEFAULTDOMAIN + "." + Constants.DOMAINNAME + ":5277/");
         }
 
         var vm = new HomeViewModel(_beService);
