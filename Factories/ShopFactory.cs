@@ -66,6 +66,7 @@ public class ShopFactory
     {
         Shop output = new Shop
         {
+            Id = Guid.Empty,
             Prefix = "_",
             Settings = new ShopSetting
             {
@@ -94,7 +95,8 @@ public class ShopFactory
                     }
                 }
             },
-            Items = new HashSet<ShopItem>()
+            Items = new HashSet<ShopItem>(),
+            Orders = new HashSet<Order>()
         };
         return output;
     }

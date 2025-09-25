@@ -125,7 +125,8 @@ public class DataModelFactory
             Id = id,
             Prefix = prefix,
             Settings = shopSettings,
-            Items = new HashSet<ShopItem>()
+            Items = new HashSet<ShopItem>(),
+            Orders = new HashSet<Order>()
         };
 
         _srv.DbContext.Shops.Add(shop);

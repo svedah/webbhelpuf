@@ -109,14 +109,15 @@ public class Seeder
     private Shop SeedShop(ShopSetting shopSetting)
     {
         var items = new HashSet<ShopItem>();
+        var orders = new HashSet<Order>();
 
         return new Shop
         {
             Id = Guid.NewGuid(),
             Prefix = "www",
             Settings = shopSetting,
-            Items = items
-            // Items = new HashSet<ShopItem>()
+            Items = items,
+            Orders = orders
         };
 
     }
