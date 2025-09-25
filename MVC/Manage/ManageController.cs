@@ -8,6 +8,7 @@ using webbhelpuf.Data.Seed;
 using webbhelpuf.Services;
 using webbhelpuf.Shared;
 using webbhelpuf.ViewModels;
+using webbhelpuf.PostModels;
 
 namespace webbhelpuf.Controllers;
 
@@ -16,11 +17,13 @@ public class ManageController : Controller
 {
     private readonly ILogger<ManageController> _logger;
     private readonly BeService _beService;
+    private readonly ManageService _manageService;
 
     public ManageController(ILogger<ManageController> logger, BeService beService)
     {
         _logger = logger;
         _beService = beService;
+        _manageService = new ManageService(beService);
     }
 
     public IActionResult Index()
@@ -56,10 +59,35 @@ public class ManageController : Controller
         return View(vm);
     }
 
+
     public IActionResult Settings()
     {
         var vm = new ManageViewModel(_beService);
         return View(vm);
     }
+
+
+    [HttpPost]
+    public IActionResult ContactInfo(ManageShopContactInfoPostModel input)
+    {
+        _manageService.UpdateContactInfo(input);
+        return RedirectToAction("Settings");
+    }
+
+    [HttpPost]
+    public IActionResult Settings(ManageShopSettingsPostModel input)
+    {
+        _manageService.UpdateSettings(input);
+        var vm = new ManageViewModel(_beService);
+        return View(vm);
+    }
+
+    [HttpPost]
+    public IActionResult SocialMedia(ManageShopSocialMediasPostModel input)
+    {
+        _manageService.UpdateSocialMedia(input);
+        return RedirectToAction("Settings");
+    }
+
 
 }
