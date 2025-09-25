@@ -44,4 +44,58 @@ public class AccountController : Controller
         _beService.SignInManager.SignOutAsync().Wait();
         return RedirectToAction("Index", "Home");
     }
+
+
+    public async Task<IActionResult> LoginIsac()
+    {
+        var lvm = new LoginViewModel
+        {
+            UserName = "isac@webbhelp.se",
+            Password = "isac1234"
+        };
+
+        IActionResult output = RedirectToAction("Index", "Account");
+
+        var user = await _beService.UserManager.FindByEmailAsync(lvm.UserName);
+        if (user is not null)
+        {
+            await _beService.SignInManager.SignOutAsync();
+            if ((await _beService.SignInManager.PasswordSignInAsync(user, lvm.Password, false, false)).Succeeded)
+            {
+                //TODO: Redirect to /Manage/Index
+                output = RedirectToAction("Index", "Home");
+            }
+        }
+
+        return output;
+    }
+
+    public async Task<IActionResult> LoginLara()
+    {
+        var lvm = new LoginViewModel
+        {
+            UserName = "lara@webbhelp.se",
+            Password = "lara1234"
+        };
+        
+        IActionResult output = RedirectToAction("Index", "Account");
+
+        var user = await _beService.UserManager.FindByEmailAsync(lvm.UserName);
+        if (user is not null)
+        {
+            await _beService.SignInManager.SignOutAsync();
+            if ((await _beService.SignInManager.PasswordSignInAsync(user, lvm.Password, false, false)).Succeeded)
+            {
+                //TODO: Redirect to /Manage/Index
+                output = RedirectToAction("Index", "Home");
+            }
+        }
+
+        return output;
+    }
+
+
+
+
+
 }
