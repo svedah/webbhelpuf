@@ -53,7 +53,7 @@ public class ManageController : Controller
         return View(vm);
     }
 
-    public IActionResult Purchases()
+    public IActionResult Orders()
     {
         var vm = new ManageViewModel(_beService);
         return View(vm);

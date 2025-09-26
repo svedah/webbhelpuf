@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 
 using webbhelpuf.Data.Models;
 using webbhelpuf.Data.Seed;
+using webbhelpuf.PostModels;
 using webbhelpuf.Services;
 using webbhelpuf.Shared;
 using webbhelpuf.ViewModels;
+using webbhelpuf.Helpers;
 
 namespace webbhelpuf.Controllers;
 
@@ -26,15 +28,21 @@ public class HomeController : Controller
     {
         Seeder.SeedOnEmpty(_beService);//TODO: move to correct location
 
-        var subdomain = Helpers.DomainHelper.ExtractSubDomain(_beService);
-        if (!_beService.DbContext.Shops.Where(e => e.Prefix == subdomain).Any())
+        // var subdomain = Helpers.DomainHelper.ExtractSubDomain(_beService);
+        // if (!_beService.DbContext.Shops.Where(e => e.Prefix == subdomain).Any())
+        // {
+        //     //TODO: remove port on release
+        //     return Redirect("//" + Constants.DEFAULTDOMAIN + "." + Constants.DOMAINNAME + ":5277/");
+        // }
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
         {
-            //TODO: remove port on release
-            return Redirect("//" + Constants.DEFAULTDOMAIN + "." + Constants.DOMAINNAME + ":5277/");
+            return output;
         }
 
         var vm = new HomeViewModel(_beService);
-        return View(vm);
+        output = View(vm);
+        return output;
     }
 
     // [Authorize(Roles = "Administrator")]
@@ -80,5 +88,65 @@ public class HomeController : Controller
     //     byte[] png = qrCode.ToPng(20, (int)borderWidth);
     //     return new FileContentResult(png, "image/png");
     // }
+
+    [HttpPost]
+    public IActionResult AddToCart(AddToCartPostModel input)
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+        if (!PostModelHelper.IsValid(input))
+        {
+            return RedirectToAction("Index");
+        }
+        //var cookie = _beService.HttpContextAccessor.HttpContext.Session;
+        string key = "sessionKey";
+        string value = "sessionValue";
+        _beService.HttpContextAccessor.HttpContext.Session.SetString(key, value);
+
+
+
+        //todo: fetch or create cart&cartitem or make use of cookies?
+        throw new Exception("WORK HERE");
+        //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-9.0
+
+        return RedirectToAction("Index");
+    }
+
+
+    public IActionResult Article([FromRoute] Guid Id)
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+        if (Id == Guid.Empty)
+        {
+            return RedirectToAction("Index");
+        }
+        var vm = new HomeViewModel(_beService, Id);
+        return View(vm);
+    }
+
+    public bool RedirectOnDomainError(out IActionResult action)
+    {
+        var subdomain = Helpers.DomainHelper.ExtractSubDomain(_beService);
+        bool result = false;
+        if (!_beService.DbContext.Shops.Where(e => e.Prefix == subdomain).Any())
+        {
+            //TODO: remove port on release
+            action = Redirect("//" + Constants.DEFAULTDOMAIN + "." + Constants.DOMAINNAME + ":5277/");
+            result = true;
+        }
+        else
+        {
+            action = new RedirectResult("//");
+            result = false;
+        }
+        return result;
+    }
 
 }

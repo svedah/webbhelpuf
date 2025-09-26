@@ -24,6 +24,7 @@ public class DataModelFactory
         var cart = new Cart
         {
             Id = id,
+            Created = DateTime.UtcNow,
             Shop = shop,
             Items = new HashSet<CartItem>()
         };
@@ -151,6 +152,22 @@ public class DataModelFactory
 
         var newShopContactInfo = _srv.DbContext.ShopContactInfos.Where(e => e.Id == id).First();
         return newShopContactInfo;
+    }
+
+    public ShopItem CreateEmptyShopItem()
+    {
+        return new ShopItem
+        {
+            Id = Guid.Empty,
+            Title = string.Empty,
+            ItemsAvailable = 0,
+            Price = 0,
+            Description = string.Empty,
+            Order = 0,
+            Shop = null,
+            PrimaryImage = null,
+            Images = null
+        };
     }
 
     public ShopItem CreateShopItem

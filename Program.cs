@@ -20,6 +20,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(3600);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
@@ -59,6 +66,8 @@ else
 app.UseRouting();
 app.UseResponseCaching();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapStaticAssets();
 

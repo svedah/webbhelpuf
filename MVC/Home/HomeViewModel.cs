@@ -12,6 +12,8 @@ public class HomeViewModel
 
     private readonly Shop _shop;
 
+    private readonly ShopItem _shopitem;
+
 
     string _orderby;
     public List<ShopItem> ItemsBySelectedOrder
@@ -42,6 +44,14 @@ public class HomeViewModel
         get
         {
             return _shop;
+        }
+    }
+
+    public ShopItem ShopItem
+    {
+        get
+        {
+            return _shopitem;
         }
     }
 
@@ -84,5 +94,24 @@ public class HomeViewModel
         _beService = beService;
         _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
         _orderby = "ItemOrder";
+        _shopitem = new DataModelFactory(_beService).CreateEmptyShopItem();
     }
+
+    public HomeViewModel(BeService beService, Guid shopItemId)
+    {
+        _beService = beService;
+        _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
+        _orderby = "ItemOrder";
+        if (_shop.Items.Where(e => e.Id == shopItemId).Any())
+        {
+            _shopitem = _shop.Items.Where(e => e.Id == shopItemId).First();
+        }
+        else
+        {
+            _shopitem = new DataModelFactory(_beService).CreateEmptyShopItem();
+        }
+
+    }
+
+
 }
