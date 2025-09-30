@@ -1,0 +1,24 @@
+@using webbhelpuf.Shared
+@model webbhelpuf.ViewModels.TestViewModel
+@{
+    ViewData["Title"] = "TestSida";
+    ViewData["ShopTheme"] = "standard.css";
+}
+<h1>Test</h1>
+
+<div>
+
+    <form asp-controller="Test" asp-action="Upload" enctype="multipart/form-data">
+    
+        <label for="image">Bild</label>
+        <input 
+            type="file"
+            id="image"
+            name="image" 
+            accept="image/jpeg, image/png;capture=camera"
+        />
+        <input type="submit" />
+    
+    </form>
+
+</div>

@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using webbhelpuf.Data.Models;
+using webbhelpuf.Factories;
 using webbhelpuf.Helpers;
 using webbhelpuf.PostModels;
 using webbhelpuf.Shared;
@@ -51,7 +54,11 @@ public class ManageService
     {
         if (input.id is not null)
         {
-            var settings = _beService.DbContext.ShopSettings.Where(e => e.Id == input.id).First();
+            var settings = _beService.DbContext.ShopSettings
+                .Where(e => e.Id == input.id)
+                .Include(e => e.LogoImage)
+                .Include(e => e.ContactInfo)
+                .First();
             if (settings is not null)
             {
                 var shop = _beService.DbContext.Shops.Where(e => e.Settings == settings).First();
@@ -92,7 +99,25 @@ public class ManageService
                     //TODO: imagelogo
                     if (input.logoimage is not null)
                     {
-                        throw new Exception("NOT DONE HERE!");
+                        var ms = new MemoryStream();
+                        input.logoimage.OpenReadStream().CopyTo(ms);//copy - logoimage stream is writable
+                        var rawdata = ms.ToArray();
+
+                        Image newLogoImage = DataModelFactory.CreateDummyImage();
+                        if (UpdateSettings_Image(rawdata, ref newLogoImage))
+                        {
+                            //store
+                            _beService.DbContext.Images.Add(newLogoImage);
+                            var oldImage = settings.LogoImage;
+                            settings.LogoImage = newLogoImage;
+                            //TODO: delete old picture and db entry for image
+                            _beService.DbContext.Images.Remove(oldImage);
+                            var storePath = _beService.wwwroot + Path.DirectorySeparatorChar + "img" + Path.DirectorySeparatorChar + "logo" + Path.DirectorySeparatorChar;
+                            if (File.Exists(storePath + oldImage.Filename))
+                            {
+                                File.Delete(storePath + oldImage.Filename);
+                            }
+                        }
                     }
                     _beService.DbContext.SaveChanges();
                 }
@@ -100,6 +125,59 @@ public class ManageService
 
             }
         }
+    }
+
+    // private bool UpdateSettings_Image(MemoryStream ms, ShopSetting settings)
+    private bool UpdateSettings_Image(byte[] arr, ref Image dbImage)
+    {
+        bool output = false;
+        SixLabors.ImageSharp.Image image;
+        // if (ImageSharpHelper.OpenImageFromStream(ms, out image))
+        if (ImageSharpHelper.OpenImageFromArray(arr, out image))
+        {
+            //crop
+            SixLabors.ImageSharp.Image croppedImage = ImageSharpHelper.CropToSquare(image);
+
+            // resize image
+            SixLabors.ImageSharp.Image resizedImage = ImageSharpHelper.Resize(croppedImage, Constants.LOGOIMAGEWIDTH, Constants.LOGOIMAGEHEIGHT);
+
+            //create db image
+            var newImageId = Guid.NewGuid();
+            var newImage = new Image
+            {
+                Id = newImageId,
+                Filename = newImageId.ToString() + ".jpeg",
+                AltText = "Logo"
+            };
+
+            //store in wwwroot/img/logo/
+            var newImageData = ImageSharpHelper.SaveImageToStream(resizedImage).ToArray();
+            var storePath = _beService.wwwroot + Path.DirectorySeparatorChar + "img" + Path.DirectorySeparatorChar + "logo" + Path.DirectorySeparatorChar;
+            File.WriteAllBytes(storePath + newImage.Filename, newImageData);
+
+            dbImage = newImage;
+
+            //erase former image from wwwroot/img and db on success
+            // var currentImage = settings.LogoImage;
+            // if (currentImage is not null)
+            // {
+            //     var storePath = _beService.wwwroot + Path.DirectorySeparatorChar + "img" + Path.DirectorySeparatorChar + "logo" + Path.DirectorySeparatorChar;
+            //     if (File.Exists(storePath + currentImage.Filename))
+            //     {
+            //         File.Delete(storePath + currentImage.Filename);
+            //     }
+            //     _beService.DbContext.Images.Remove(currentImage);
+            // }
+
+            //store new image in db
+            // _beService.DbContext.Images.Add(newImage);
+            // _beService.DbContext.SaveChanges();
+            // settings.LogoImage = _beService.DbContext.Images.Where(e => e.Id == newImageId).First();
+            // _beService.DbContext.SaveChanges();
+
+            output = true;
+        }
+        return output;
     }
 
     public void UpdateSocialMedia(ManageShopSocialMediasPostModel input)

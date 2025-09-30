@@ -78,6 +78,7 @@ public class ShopFactory
                 Theme = "Standard",
                 LogoImage = new Image
                 {
+                    Id = Guid.Empty,
                     AltText = "Dummy Logo",
                     Filename = "/img/No_Image_Available.jpeg"
                 },
@@ -100,5 +101,7 @@ public class ShopFactory
         };
         return output;
     }
+
+
 
 }

@@ -6,33 +6,33 @@
 }
 <h1>Inställningssida</h1>
 
-<fieldset>
+<fieldset class="form-group border p-3">
 <Legend>Inställningar</Legend>
-<form asp-controller="Manage" asp-action="Settings">
+<form asp-controller="Manage" asp-action="Settings" enctype="multipart/form-data">
 
-    <div>
+    <div class="form-group">
         <label for="settings_title">Företagsnamn</label>
-        <input id="settings_title" type="text" name="title" value="@Model.Shop.Settings.Title" />
+        <input class="form-control" id="settings_title" type="text" name="title" value="@Model.Shop.Settings.Title" />
     </div>
 
-    <div>
+    <div class="form-group">
         <label for="settings_swish">Swishnummer</label>
-        <input id="settings_swish" type="text" name="swishnumber" value="@Model.Shop.Settings.SwishNumber" />
+        <input class="form-control" id="settings_swish" type="text" name="swishnumber" value="@Model.Shop.Settings.SwishNumber" />
     </div>
 
-    <div>
-        <label for="settings_baseshippingprice"></label>
-        <input id="settings_baseshippingprice" type="number" min="0" max="1000" name="baseshippingprice" value="@Model.Shop.Settings.BaseShippingPrice" />
+    <div class="form-group">
+        <label for="settings_baseshippingprice">Grundpris frakt</label>
+        <input class="form-control" id="settings_baseshippingprice" type="number" min="0" max="1000" name="baseshippingprice" value="@Model.Shop.Settings.BaseShippingPrice" />
     </div>
 
-    <div>
-        <label for="settings_description"></label>
-        <textarea id="settings_description" rows="10" cols="20" name="description" value="@Model.Shop.Settings.Description"></textarea>
+    <div class="form-group">
+        <label for="settings_description">Beskrivning av företag</label>
+        <textarea class="form-control" id="settings_description" rows="10" cols="20" name="description" value="@Model.Shop.Settings.Description"></textarea>
     </div>
 
-    <div>
+    <div class="form-group">
         <label for="settings_layout">Utseende</label>
-        <select id="settings_layout" name="layout">
+        <select class="form-control" id="settings_layout" name="layout">
             <option value="" selected disabled>Välj Layout</option>
             <option value="standard">Standard</option>
             <option value="layout1">Utseende 1</option>
@@ -41,9 +41,9 @@
         </select>
     </div>
 
-    <div>
+    <div class="form-group">
         <label for="settings_theme">Färgtema</label>
-        <select id="settings_theme" name="theme">
+        <select class="form-control" id="settings_theme" name="theme">
             <option value="" selected disabled>Välj Tema</option>
             <option value="standard">Standard</option>
             <option value="theme1">Färgtema 1</option>
@@ -51,60 +51,68 @@
             <option value="theme3">Färgtema 3</option>
         </select>
     </div>
-    <div>
+
+    <div class="form-group">
         <label for="settings_logo">Ladda upp logo</label>
-        <input id="settings_logo" type="file" name="logoimage" />
+        <input class="form-control-file" id="settings_logo" type="file" name="logoimage" accept="image/*" />
     </div>
-    <div>
+
+    <div class="form-group">
+        <img src="/img/logo/@Model.Shop.Settings.LogoImage.Filename" 
+            style="max-width: 100px;"
+        />
+    </div>
+
+    <div class="form-group">
         <input type="hidden" name="id" value="@Model.Shop.Settings.Id" />
-        <input type="submit" value="Uppdatera Inställningar" />
+        <input class="form-control" type="submit" value="Uppdatera Inställningar" />
     </div>
 
 </form>
 </fieldset>
 
-<fieldset>
+<fieldset class="form-group border p-3">
 <legend>Kontaktinformation</legend>
     <form asp-controller="Manage" asp-action="ContactInfo">
-        <div>
+        <div class="form-group">
             <label for="contactinfo_email">E-post</label>
-            <input id="contactinfo_email" name="email" type="email" value="@Model.Shop.Settings.ContactInfo.Email" />
+            <input class="form-control" id="contactinfo_email" name="email" type="email" value="@Model.Shop.Settings.ContactInfo.Email" />
         </div>
-        <div>
+        <div class="form-group">
             <label for="contactinfo_phone">Mobilnummer</label>
-            <input id="contactinfo_phone" name="mobilenumber" type="text" value="@Model.Shop.Settings.ContactInfo.MobileNumber" />
+            <input class="form-control" id="contactinfo_phone" name="mobilenumber" type="text" value="@Model.Shop.Settings.ContactInfo.MobileNumber" />
         </div>
-        <div>
+        <div class="form-group">
             <input type="hidden" name="id" value="@Model.Shop.Settings.ContactInfo.Id" />
-            <input type="submit" value="Uppdatera Kontaktinformation" />
+            <input class="form-control" type="submit" value="Uppdatera Kontaktinformation" />
         </div>
     </form>
 </fieldset>
 
-<fieldset>
+<fieldset class="form-group border p-3">
 <legend>Länkar till Sociala Medier</legend>
 <form asp-controller="Manage" asp-action="SocialMedia">
-    <div>
+    <div class="form-group">
         <label for="socialmedia_facebook">Facebook</label>
-        <input type="text" id="socialmedia_facebook" name="facebook" value="@Model.Shop.Settings.ContactInfo.SocialMedias.Facebook" />
+        <input class="form-control" type="text" id="socialmedia_facebook" name="facebook" value="@Model.Shop.Settings.ContactInfo.SocialMedias.Facebook" />
     </div>
-    <div>
+    <div class="form-group">
         <label for="socialmedia_instagram">Instagram</label>
-        <input type="text" id="socialmedia_instagram" name="instagram" value="@Model.Shop.Settings.ContactInfo.SocialMedias.Instagram" />
+        <input class="form-control" type="text" id="socialmedia_instagram" name="instagram" value="@Model.Shop.Settings.ContactInfo.SocialMedias.Instagram" />
     </div>
-    <div>
+    <div class="form-group">
         <label for="socialmedia_linkedin">LinkedIn</label>
-        <input type="text" id="socialmedia_linkedin" name="linkedin" value="@Model.Shop.Settings.ContactInfo.SocialMedias.LinkedIn" />
-    </div>
+        <input class="form-control" type="text" id="socialmedia_linkedin" name="linkedin" value="@Model.Shop.Settings.ContactInfo.SocialMedias.LinkedIn" />
+    </div class="form-group">
         <label for="socialmedia_tiktok">TikTok</label>
-        <input type="text" id="socialmedia_tiktok" name="tiktok" value="@Model.Shop.Settings.ContactInfo.SocialMedias.TikTok" />
-    <div>
+        <input class="form-control" type="text" id="socialmedia_tiktok" name="tiktok" value="@Model.Shop.Settings.ContactInfo.SocialMedias.TikTok" />
+    <div class="form-group">
         <label for="socialmedia_youtube">YouTube</label>
-        <input type="text" id="socialmedia_youtube" name="youtube" value="@Model.Shop.Settings.ContactInfo.SocialMedias.YouTube" />
+        <input class="form-control" type="text" id="socialmedia_youtube" name="youtube" value="@Model.Shop.Settings.ContactInfo.SocialMedias.YouTube" />
     </div>
-    <div>
+    <div class="form-group">
         <input type="hidden" name="id" value="@Model.Shop.Settings.ContactInfo.SocialMedias.Id" />
-        <input type="submit" value="Uppdatera Sociala Medier" />
+        <input class="form-control" type="submit" value="Uppdatera Sociala Medier" />
     </div>
 </form>
 </fieldset>

@@ -38,6 +38,7 @@ public class Seeder
         var ctx = _srv.DbContext;
         if (!ctx.Users.Any())
         {
+            //TODO: programmatically "dotnet ef database update" here ???
             SeedIdentityRoles().Wait();
             SeedAdministrator().Wait();//TODO
 
@@ -168,6 +169,7 @@ public class Seeder
             Order = 1,
             PrimaryImage = new Image
             {
+                Id = Guid.NewGuid(),
                 AltText = "Bild Item 1",
                 Filename = "00000000-0000-0000-0000-000000000000.jpeg"
             },
@@ -187,6 +189,7 @@ public class Seeder
             Order = 2,
             PrimaryImage = new Image
             {
+                Id = Guid.NewGuid(),
                 AltText = "Bild Item 2",
                 Filename = "00000000-0000-0000-0000-000000000000.jpeg"
             },

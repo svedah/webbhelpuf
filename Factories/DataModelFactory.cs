@@ -101,6 +101,7 @@ public class DataModelFactory
         return newCustomerInfo;
     }
 
+
     public webbhelpuf.Data.Models.Image CreateImage(string filename, string alttext)
     {
         var id = Guid.NewGuid();
@@ -117,6 +118,17 @@ public class DataModelFactory
         var newImage = _srv.DbContext.Images.Where(e => e.Id == id).First();
         return newImage;
     }
+
+    public static webbhelpuf.Data.Models.Image CreateDummyImage()
+    {
+        return new Image
+        {
+            Id = Guid.Empty,
+            Filename = string.Empty,
+            AltText = string.Empty
+        };
+    }
+
 
     public Shop CreateShop(string prefix, ShopSetting shopSettings)
     {

@@ -15,4 +15,7 @@ static public class Constants
         "standard", "theme1", "theme2", "theme3"
     };
 
+    static public int LOGOIMAGEHEIGHT = 400;
+    static public int LOGOIMAGEWIDTH = 400;
+
 }
