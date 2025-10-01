@@ -99,8 +99,11 @@ public class HomeController : Controller
         }
         if (!PostModelHelper.IsValid(input))
         {
-            return RedirectToAction("Index");
+            output = RedirectToAction("Index");
+            return output;
         }
+
+
         //var cookie = _beService.HttpContextAccessor.HttpContext.Session;
         string key = "sessionKey";
         string value = "sessionValue";
@@ -111,6 +114,8 @@ public class HomeController : Controller
         //todo: fetch or create cart&cartitem or make use of cookies?
         throw new Exception("WORK HERE");
         //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-9.0
+
+        //DISCUSS: redirect to same item or homepage?
 
         return RedirectToAction("Index");
     }

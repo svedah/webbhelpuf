@@ -18,4 +18,6 @@ static public class Constants
     static public int LOGOIMAGEHEIGHT = 400;
     static public int LOGOIMAGEWIDTH = 400;
 
+    static public string CARTSESSIONKEY = "cartitems";
+
 }
