@@ -12,7 +12,9 @@ public class HomeViewModel
 
     private readonly Shop _shop;
 
-    private readonly ShopItem _shopitem;
+    private readonly Cart _cart;
+
+    private readonly ShopItem _shopitem; //för article-sida
 
 
     string _orderby;
@@ -47,7 +49,15 @@ public class HomeViewModel
         }
     }
 
-    public ShopItem ShopItem
+    public Cart Cart
+    {
+        get
+        {
+            return _cart;
+        }
+    }
+
+    public ShopItem ShopItem //för article-sida
     {
         get
         {
@@ -93,6 +103,8 @@ public class HomeViewModel
     {
         _beService = beService;
         _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
+        _cart = CartHelper.GetOrCreateCart(_beService);
+
         _orderby = "ItemOrder";
         _shopitem = new DataModelFactory(_beService).CreateEmptyShopItem();
     }
@@ -101,6 +113,7 @@ public class HomeViewModel
     {
         _beService = beService;
         _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
+
         _orderby = "ItemOrder";
         if (_shop.Items.Where(e => e.Id == shopItemId).Any())
         {
@@ -110,8 +123,5 @@ public class HomeViewModel
         {
             _shopitem = new DataModelFactory(_beService).CreateEmptyShopItem();
         }
-
     }
-
-
 }

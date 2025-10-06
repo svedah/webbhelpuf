@@ -1,0 +1,39 @@
+@using webbhelpuf.Data.Models
+@model webbhelpuf.Data.Models.Cart
+
+<div>
+<h6>Varukorg</h6>
+
+@if (Model.Items.Count > 0)
+{
+    <table>
+        <tr>
+            <th>Vara</th>
+            <th>Antal</th>
+            <th>Pris</th>
+        </tr>
+        @foreach(CartItem cartItem in Model.Items)
+        {
+            <tr>
+                <td>
+                    @cartItem.ShopItem.Title
+                    <img src="/img/items/@cartItem.ShopItem.PrimaryImage.Filename" style="width:3rem;"/>
+                </td>
+                <td>
+                    @cartItem.Amount
+                </td>
+                <td>
+                    @cartItem.Amount * @cartItem.ShopItem.Price
+                </td>
+            </tr>
+        }
+    </table>
+    <button>Ändra Varukorg</button>
+}
+else
+{
+    <p>Varukorgen är tom</p>    
+}
+
+
+</div>

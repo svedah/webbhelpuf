@@ -89,6 +89,11 @@ public class HomeController : Controller
     //     return new FileContentResult(png, "image/png");
     // }
 
+    public IActionResult AddToCart()
+    {
+        return RedirectToAction("Index");
+    }
+
     [HttpPost]
     public IActionResult AddToCart(AddToCartPostModel input)
     {
@@ -99,25 +104,13 @@ public class HomeController : Controller
         }
         if (!PostModelHelper.IsValid(input))
         {
-            output = RedirectToAction("Index");
+            output = RedirectToAction("AddToCart");
             return output;
         }
 
+        Helpers.CartHelper.AddItemToCart(_beService, input);
 
-        //var cookie = _beService.HttpContextAccessor.HttpContext.Session;
-        string key = "sessionKey";
-        string value = "sessionValue";
-        _beService.HttpContextAccessor.HttpContext.Session.SetString(key, value);
-
-
-
-        //todo: fetch or create cart&cartitem or make use of cookies?
-        throw new Exception("WORK HERE");
-        //https://learn.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-9.0
-
-        //DISCUSS: redirect to same item or homepage?
-
-        return RedirectToAction("Index");
+        return RedirectToAction("AddToCart");
     }
 
 

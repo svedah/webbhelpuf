@@ -6,21 +6,30 @@ namespace webbhelpuf.Helpers;
 
 static public class SessionHelper
 {
-    public static Guid GetCartGuid(BeService _beService)
+    //returns guid empty on no cartsessionkey set or malformed guid
+    public static Guid GetCartId(BeService _beService)
     {
         Guid output = Guid.Empty;
 
         var session = _beService.HttpContextAccessor.HttpContext?.Session;
         if (session is not null)
         {
-            var sessionString = session.GetString(Constants.CARTSESSIONKEY) ?? string.Empty;
-            Guid.TryParse(sessionString, out output);
+            var sessionString = session.GetString(Constants.CARTSESSIONKEY);
+            if (sessionString is not null)
+            {
+                Guid.TryParse(sessionString, out output);
+            }
         }
 
         return output;
     }
 
-    public static void SetCartGuid(BeService _beService, Guid input)
+    public static bool HasCartId(BeService _beService)
+    {
+        return !GetCartId(_beService).Equals(Guid.Empty);
+    }
+
+    public static void SetCartId(BeService _beService, Guid input)
     {
         var session = _beService.HttpContextAccessor.HttpContext?.Session;
         if (session is not null && input != Guid.Empty)

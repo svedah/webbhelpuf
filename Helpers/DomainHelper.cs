@@ -30,10 +30,5 @@ static public class DomainHelper
         return output;
     }
 
-    static public Guid GetSubDomainId(BeService beService)
-    {
-        string host = ExtractSubDomain(beService);
-        //TODO: fetch id from db
-        return Guid.Empty;
-    }
+
 }
