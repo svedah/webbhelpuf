@@ -16,6 +16,43 @@ public class HomeViewModel
 
     private readonly ShopItem _shopitem; //för article-sida
 
+    private readonly CustomerInfo _customerInfo;
+
+
+    public bool HasAddress
+    {
+        get
+        {
+            return false;//_customerInfo
+        }
+    }
+
+    public CustomerInfo CustomerInfo
+    {
+        get
+        {
+            if (_customerInfo is not null)
+            {
+                return _customerInfo;
+            }
+            else
+            {
+                return new CustomerInfo
+                {
+                    Id = Guid.Empty,
+                    FirstName = "Förnamn",
+                    LastName = "Efternamn",
+                    StreetName = "Gatan",
+                    StreetNo = "1",
+                    ZipCode = "12345",
+                    City = "Staden",
+                    Email = "epost@dressen.se",
+                    Phone = "0700123456"
+                };
+            }
+        }
+    }
+
 
     string _orderby;
     public List<ShopItem> ItemsBySelectedOrder
@@ -104,6 +141,7 @@ public class HomeViewModel
         _beService = beService;
         _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
         _cart = CartHelper.GetOrCreateCart(_beService);
+        _customerInfo = CustomerHelper.GetOrCreateCustomer(beService).CustomerInfo;
 
         _orderby = "ItemOrder";
         _shopitem = new DataModelFactory(_beService).CreateEmptyShopItem();
@@ -113,6 +151,8 @@ public class HomeViewModel
     {
         _beService = beService;
         _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
+        _cart = CartHelper.GetOrCreateCart(_beService);
+        _customerInfo = CustomerHelper.GetOrCreateCustomer(beService).CustomerInfo;
 
         _orderby = "ItemOrder";
         if (_shop.Items.Where(e => e.Id == shopItemId).Any())

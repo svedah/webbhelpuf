@@ -14,6 +14,7 @@
         </tr>
         @foreach(CartItem cartItem in Model.Items)
         {
+            int price = cartItem.Amount * cartItem.ShopItem.Price;
             <tr>
                 <td>
                     @cartItem.ShopItem.Title
@@ -23,17 +24,21 @@
                     @cartItem.Amount
                 </td>
                 <td>
-                    @cartItem.Amount * @cartItem.ShopItem.Price
+                    @price
                 </td>
             </tr>
         }
     </table>
-    <button>Ändra Varukorg</button>
+    @* <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a> *@
+    <div>
+        <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a>
+        |
+        <a asp-controller="Home" asp-action="PayCart">Betala</a>
+    </div>
 }
 else
 {
     <p>Varukorgen är tom</p>    
 }
-
 
 </div>

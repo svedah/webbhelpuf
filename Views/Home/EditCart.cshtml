@@ -1,0 +1,16 @@
+﻿@using webbhelpuf.Data.Models;
+@using webbhelpuf.Shared;
+@model webbhelpuf.ViewModels.HomeViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["ShopTheme"] = Model.ShopTheme + ".css";
+}
+<h1>Ändra varukorg</h1>
+@if (Model.Cart.Items.Count > 0)
+{
+    <partial name="_CartEditor" model="Model.Cart" />
+}
+else
+{
+    <p>Varukorgen är tom</p>
+}

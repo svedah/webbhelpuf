@@ -7,8 +7,8 @@ public class Customer
     public Guid Id { get; set; }
 
     public required virtual Cart Cart { get; set; }
-    public required virtual CustomerInfo CustomerInfo { get; set; }
-    public required CustomerStateEnum CustomerState { get; set; }
+    public virtual CustomerInfo CustomerInfo { get; set; }
+    public virtual CustomerStateEnum CustomerState { get; set; }
 
 }
 

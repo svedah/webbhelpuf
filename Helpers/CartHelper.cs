@@ -22,12 +22,100 @@ static public class CartHelper
         return cartItem;
     }
 
+    public static void DeleteCart(BeService _beService)
+    {
+        Cart cart = GetOrCreateCart(_beService);
+
+        foreach (CartItem ci in cart.Items)
+        {
+            _beService.DbContext.CartItems.Remove(ci);
+        }
+
+        _beService.DbContext.Carts.Remove(cart);
+
+        _beService.DbContext.SaveChanges();
+    }
+
+    public static void DeleteCartItems(BeService _beService)
+    {
+        DeleteCart(_beService);//same same...
+    }
+
     public static bool DeleteCartItem(BeService _beService, CartItem item)
     {
+        bool output = false;
+
+        //hämta cart
+        Cart cart = GetOrCreateCart(_beService);
+
+        //cart innehåller cartitem?
+        bool cartItemExists = cart.Items.Where(e => e.Id == item.Id).Any();
+        if (cartItemExists)
+        {
+            //ta bort cartitem ur cart
+            cart.Items.Remove(item);
+
+            //ta bort cartitem ur db
+            _beService.DbContext.CartItems.Remove(item);
+
+            //spara cart
+            _beService.DbContext.Carts.Update(cart);
+
+            //TODO: ta bort cart om den är tom?
+
+            _beService.DbContext.SaveChanges();
+
+            output = true;
+        }
+        //returnera true om allt lyckades, annars false
+        return output;
+    }
+
+    public static bool DeleteCartItem(BeService _beService, Guid cartItemId)
+    {
+        CartItem cartItem;
+        if (_beService.DbContext.CartItems.Where(e => e.Id == cartItemId).Any())
+        {
+            cartItem = _beService.DbContext.CartItems.Where(e => e.Id == cartItemId).First();
+            return DeleteCartItem(_beService, cartItem);
+        }
         return false;
     }
+
+
     public static bool EditCartItem(BeService _beService, CartItem item, int amount)
     {
+        bool output = false;
+
+        //hämta cart
+        Cart cart = GetOrCreateCart(_beService);
+
+        //cart innehåller cartitem?
+        bool cartItemExists = cart.Items.Where(e => e.Id == item.Id).Any();
+        if (cartItemExists)
+        {
+            //ändra cartitem
+            CartItem citem = cart.Items.Where(e => e.Id == item.Id).First();
+            citem.Amount = amount;
+
+            //spara cartitem
+            _beService.DbContext.CartItems.Update(citem);
+            _beService.DbContext.SaveChanges();
+
+            output = true;
+        }
+        //returnera true om allt lyckades, annars false
+        return output;
+    }
+
+    public static bool EditCartItem(BeService _beService, Guid cartItemId, int amount)
+    {
+        CartItem cartItem;
+        if (_beService.DbContext.CartItems.Where(e => e.Id == cartItemId).Any())
+        {
+            cartItem = _beService.DbContext.CartItems.Where(e => e.Id == cartItemId).First();
+            return EditCartItem(_beService, cartItem, amount);
+        }
         return false;
     }
     public static bool DeleteCartItems(BeService _beService, CartItem item)
@@ -122,6 +210,7 @@ static public class CartHelper
         //fetch shop item
         if (_beService.DbContext.ShopItems.Where(e => e.Id == pm.id).Any())
         {
+            ShopItem shopItem = shop.Items.Where(e => e.Id == pm.id).First();
             //create cart in db
             if (!cartInDb)
             {
@@ -130,15 +219,23 @@ static public class CartHelper
                 _beService.DbContext.SaveChanges();
             }
 
-            //TODO: om varan redan finns, ändra antal i befintlig cartitem
+            CartItem cartItem;
+            if (cart.Items.Where(e => e.ShopItem == shopItem).Any())
+            {
+                //varan fanns redan i varukorg -> uppdatera mängd
+                cartItem = cart.Items.Where(e => e.ShopItem == shopItem).First();
+                cartItem.Amount += pm.amount;
+                _beService.DbContext.Update(cartItem);
+            }
+            else
+            {
+                //varan fanns inte i varukorg -> skapa ny
+                cartItem = AddCartItem(_beService, shopItem, pm.amount);
+                cart.Items.Add(cartItem);
+            }
 
-            ShopItem shopItem = shop.Items.Where(e => e.Id == pm.id).First();
-            var cartItem = AddCartItem(_beService, shopItem, pm.amount);
-            cart.Items.Add(cartItem);
             _beService.DbContext.Carts.Update(cart);
             _beService.DbContext.SaveChanges();
         }
     }
-
-
 }

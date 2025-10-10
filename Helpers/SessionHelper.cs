@@ -38,36 +38,34 @@ static public class SessionHelper
         }
     }
 
+    public static Guid GetCustomerId(BeService _beService)
+    {
+        Guid output = Guid.Empty;
 
-    // public static string GetCartString(BeService _beService)
-    // {
-    //     string output = string.Empty;
-    //     var session = _beService.HttpContextAccessor.HttpContext?.Session;
+        var session = _beService.HttpContextAccessor.HttpContext?.Session;
+        if (session is not null)
+        {
+            var sessionString = session.GetString(Constants.CUSTOMERSESSIONKEY);
+            if (sessionString is not null)
+            {
+                Guid.TryParse(sessionString, out output);
+            }
+        }
 
-    //     if (session is not null)
-    //     {
-    //         output = session.GetString(Constants.CARTSESSIONKEY) ?? string.Empty;
-    //     }
+        return output;
+    }
+    public static bool HasCustomerId(BeService _beService)
+    {
+        return !GetCustomerId(_beService).Equals(Guid.Empty);
 
-    //     return output;
-    // }
+    }
+    public static void SetCustomerId(BeService _beService, Guid input)
+    {
+        var session = _beService.HttpContextAccessor.HttpContext?.Session;
+        if (session is not null && input != Guid.Empty)
+        {
+            session.SetString(Constants.CUSTOMERSESSIONKEY, input.ToString());
+        }
+    }
 
-    // public static void SetCartString(BeService _beService, string input)
-    // {
-    //     var session = _beService.HttpContextAccessor.HttpContext?.Session;
-    //     if (session is not null && input is not null)
-    //     {
-    //         session.SetString(Constants.CARTSESSIONKEY, input);
-    //     }
-    // }
-
-    // public static void DeleteCartString(BeService _beService)
-    // {
-    //     var session = _beService.HttpContextAccessor.HttpContext?.Session;
-
-    //     if (session is not null)
-    //     {
-    //         session.Remove(Constants.CARTSESSIONKEY);
-    //     }
-    // }
 }

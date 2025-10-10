@@ -10,6 +10,7 @@ using webbhelpuf.Services;
 using webbhelpuf.Shared;
 using webbhelpuf.ViewModels;
 using webbhelpuf.Helpers;
+using webbhelpuf.Validators;
 
 namespace webbhelpuf.Controllers;
 
@@ -125,9 +126,133 @@ public class HomeController : Controller
         {
             return RedirectToAction("Index");
         }
-        var vm = new HomeViewModel(_beService, Id);
+        var vm = new HomeArticleViewModel(_beService, Id);
         return View(vm);
     }
+
+    public IActionResult DeleteCartItem()
+    {
+        return RedirectToAction("EditCart");
+    }
+
+    [HttpPost]
+    public IActionResult DeleteCartItem(DeleteCartItemPostModel input)
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+
+        CartHelper.DeleteCartItem(_beService, input.id);
+
+        return RedirectToAction("DeleteCartItem");
+    }
+
+
+
+    public IActionResult EditCart()
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+        var vm = new HomeViewModel(_beService);
+        return View(vm);
+    }
+
+    public IActionResult EditCartItem()
+    {
+        return RedirectToAction("EditCart");
+    }
+
+    [HttpPost]
+    public IActionResult EditCartItem(EditCartItemPostModel input)
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+
+        CartHelper.EditCartItem(_beService, input.id, input.amount);
+
+        return RedirectToAction("EditCartItem");
+    }
+
+    public IActionResult PayCart()
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+
+        //Tom varukorg? => redirecta till startsidan
+        bool cartIsEmpty = CartHelper.GetOrCreateCart(_beService).Items.Count == 0;
+        if (cartIsEmpty)
+        {
+            return RedirectToAction("Index");
+        }
+;
+        //2. om användaren inte har en sessioncustomer-adress, redirecta till "registrera adress"
+        var sessionHasCustomerAddress = CustomerHelper.GetOrCreateCustomer(_beService).CustomerInfo is not null;
+        if (!sessionHasCustomerAddress)
+        {
+            return RedirectToAction("EditAddress");
+        }
+
+        //3. redirecta till "verifiera adress och varukorg"
+        return RedirectToAction("VerifyAddressAndCart");
+
+    }
+
+    public IActionResult EditAddress()
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+
+        //Tom varukorg? => redirecta till startsidan
+        // bool cartIsEmpty = CartHelper.GetOrCreateCart(_beService).Items.Count == 0;
+        // if (cartIsEmpty)
+        // {
+        //     return RedirectToAction("Index");
+        // }
+
+        //Om användaren har en sessioncustomer-adress, redirecta till "paycart"
+        // var sessionHasCustomerAddress = CustomerHelper.GetOrCreateCustomer(_beService).CustomerInfo is not null;
+        // if (sessionHasCustomerAddress)
+        // {
+        //     return RedirectToAction("PayCart");
+        // }
+
+        var vm = new HomeViewModel(_beService);
+        return View(vm);
+    }
+
+    [HttpPost]
+    public IActionResult EditAddress(EditAddressPostModel pm)
+    {
+        IActionResult output;
+        if (RedirectOnDomainError(out output))
+        {
+            return output;
+        }
+
+        Customer customer = CustomerHelper.GetOrCreateCustomer(_beService);
+        if (customer.Id == Guid.Empty)
+        {//not in db
+            //store customer and customer info in database
+            CustomerHelper.CreateCustomer(_beService, pm, ref customer);
+        }
+
+        return RedirectToAction("PayCart");
+    }
+
 
     public bool RedirectOnDomainError(out IActionResult action)
     {

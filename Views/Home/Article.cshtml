@@ -1,8 +1,9 @@
 @using webbhelpuf.Shared;
-@model webbhelpuf.ViewModels.HomeViewModel;
+@model webbhelpuf.ViewModels.HomeArticleViewModel;
 @{
     ViewData["Title"] = "Home Page";
     ViewData["ShopTheme"] = Model.ShopTheme + ".css";
     string partialView = "_View_Home_Article_" + Model.ShopLayout;
 }
+
 <partial name=@partialView model="Model" />

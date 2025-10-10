@@ -19,5 +19,6 @@ static public class Constants
     static public int LOGOIMAGEWIDTH = 400;
 
     static public string CARTSESSIONKEY = "cartitems";
+    static public string CUSTOMERSESSIONKEY = "customer";
 
 }

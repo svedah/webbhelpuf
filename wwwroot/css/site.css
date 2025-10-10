@@ -66,3 +66,11 @@ shopitem {
     }
 }
 /* END ShopItem_Card */
+
+/* BEGIN cart */
+
+.cartimg {
+  max-width: 2rem;
+}
+
+/* END cart */

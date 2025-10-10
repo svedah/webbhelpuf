@@ -76,22 +76,28 @@ public class DataModelFactory
 
     public CustomerInfo CreateCustomerInfo
     (
-        string addressee,
+        string firstname,
+        string lastname,
+        string streetname,
         string streetno,
         string zipcode,
         string city,
-        string email
+        string email,
+        string phone
     )
     {
         var id = Guid.NewGuid();
         var customerinfo = new CustomerInfo
         {
             Id = id,
-            Addressee = addressee,
+            FirstName = firstname,
+            LastName = lastname,
+            StreetName = streetname,
             StreetNo = streetno,
             ZipCode = zipcode,
             City = city,
-            Email = email
+            Email = email,
+            Phone = phone
         };
 
         _srv.DbContext.CustomerInfos.Add(customerinfo);
@@ -117,6 +123,91 @@ public class DataModelFactory
 
         var newImage = _srv.DbContext.Images.Where(e => e.Id == id).First();
         return newImage;
+    }
+
+    public static Customer CreateDummyCustomer()
+    {
+        return new Customer
+        {
+            Id = Guid.Empty,
+            Cart = CreateDummyCart(),
+            CustomerInfo = CreateDummyCustomerInfo()
+        };
+    }
+
+    public static Cart CreateDummyCart()
+    {
+        return new Cart
+        {
+            Created = DateTime.UnixEpoch,
+            Shop = CreateDummyShop(),
+            Items = new HashSet<CartItem>()
+        };
+    }
+
+    public static Shop CreateDummyShop()
+    {
+        return new Shop
+        {
+            Id = Guid.Empty,
+            Prefix = string.Empty,
+            Settings = CreateDummyShopSetting(),
+            Items = new HashSet<ShopItem>(),
+            Orders = new HashSet<Order>()
+        };
+    }
+
+    public static ShopSetting CreateDummyShopSetting()
+    {
+        return new ShopSetting
+        {
+            Title = string.Empty,
+            SwishNumber = string.Empty,
+            BaseShippingPrice = 0,
+            Description = string.Empty,
+            Layout = string.Empty,
+            Theme = string.Empty,
+            ContactInfo = CreateDummyShopContactInfo(),
+            LogoImage = CreateDummyImage()
+        };
+    }
+
+    public static ShopContactInfo CreateDummyShopContactInfo()
+    {
+        return new ShopContactInfo
+        {
+            Email = string.Empty,
+            MobileNumber = string.Empty,
+            SocialMedias = CreateDummyShopSocialMedias()
+        };
+    }
+
+    public static ShopSocialMedia CreateDummyShopSocialMedias()
+    {
+        return new ShopSocialMedia
+        {
+            Facebook = string.Empty,
+            Instagram = string.Empty,
+            LinkedIn = string.Empty,
+            TikTok = string.Empty,
+            YouTube = string.Empty
+        };
+    }
+
+    public static CustomerInfo CreateDummyCustomerInfo()
+    {
+        return new CustomerInfo
+        {
+            Id = Guid.Empty,
+            FirstName = string.Empty,
+            LastName = string.Empty,
+            StreetName = string.Empty,
+            StreetNo = string.Empty,
+            ZipCode = string.Empty,
+            City = string.Empty,
+            Email = string.Empty,
+            Phone = string.Empty
+        };
     }
 
     public static webbhelpuf.Data.Models.Image CreateDummyImage()

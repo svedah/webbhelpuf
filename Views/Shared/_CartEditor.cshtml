@@ -1,0 +1,68 @@
+@using webbhelpuf.Data.Models
+@model webbhelpuf.Data.Models.Cart
+
+<div>
+<h6>Varukorg</h6>
+
+@if (Model.Items.Count > 0)
+{
+    int total = 0;@*todo: börja med uf-företagets fraktpris?*@
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th scope="col">Vara</th>
+            <th scope="col">Antal</th>
+            <th scope="col">Pris</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        @foreach(CartItem cartItem in Model.Items)
+        {
+            @* todo:
+                hitta hur många som finns av en vara i shoppen och sätta som maxvärde på amount
+
+            
+             *@
+            int price = cartItem.Amount * cartItem.ShopItem.Price;
+            total += price;
+            <tr>
+                <td>
+                    <img class="cartimg" src="/img/items/@cartItem.ShopItem.PrimaryImage.Filename" />
+                    @cartItem.ShopItem.Title
+                </td>
+                <td>
+                    <form asp-controller="Home" asp-action="EditCartItem">
+                        <input type="hidden" name="id" value="@cartItem.Id" />
+                        <input type="number" name="amount" min="1" max="999" value="@cartItem.Amount" onchange="this.form.submit()" />
+                        @* <input type="submit" value="Ändra" /> *@
+                    </form>
+                </td>
+                <td>
+                    @price
+                </td>
+                <td>
+                    <form asp-controller="Home" asp-action="DeleteCartItem">
+                        <input type="hidden" name="id" value="@cartItem.Id" />
+                        <input type="submit" value="Ta Bort" />
+                    </form>
+                </td>
+            </tr>
+        }
+        <tr>
+        <td colspan="3">
+            Totalt (exkl frakt): @total
+        </td>
+        </tr>
+    </table>
+    @* <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a> *@
+    <div>
+        <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a>
+        |
+        <a asp-controller="Home" asp-action="PayCart">Betala</a>
+    </div>
+}
+else
+{
+    <p>Varukorgen är tom</p>    
+}
+
+
+</div>

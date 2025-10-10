@@ -1,7 +1,7 @@
 ﻿@using Microsoft.EntityFrameworkCore.Storage.ValueConversion
 @using webbhelpuf.Data.Models;
 @using webbhelpuf.Shared;
-@model webbhelpuf.ViewModels.HomeViewModel;
+@model webbhelpuf.ViewModels.HomeArticleViewModel;
 
 
 
@@ -97,21 +97,12 @@
 </fieldset>
 
 <div>
-    <partial name="_ShopItems_OrderedListContainer" model="@Model.ItemsBySelectedOrder" />
-</div>
-
-<div>
     <p>Facebook: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.Facebook" title="Vår sida på Facebook">FaceBook</a></p>
     <p>Instagram: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.Instagram" title="Vår sida på Instagram">Instagram</a></p>
     <p>LinkedIn: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.LinkedIn" title="Vår sida på LinkedIn">LinkedIn</a></p>
     <p>TikTok: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.TikTok" title="Vår sida på TikTok">TikTok</a></p>
     <p>YouTube: <a href="@Model.Shop.Settings.ContactInfo.SocialMedias.YouTube" title="Vår sida på TikTok">YouTube</a></p>
 </div>
-
-<div>
-    <img src="/qr/png/@Model.QRTestURL" alt="" />
-</div>
-
 
 <button type="button" class="btn btn-primary">Primary</button>
 <button type="button" class="btn btn-secondary">Secondary</button>
