@@ -90,29 +90,29 @@ public class HomeController : Controller
     //     return new FileContentResult(png, "image/png");
     // }
 
-    public IActionResult AddToCart()
-    {
-        return RedirectToAction("Index");
-    }
+    // public IActionResult AddToCart()
+    // {
+    //     return RedirectToAction("Index");
+    // }
 
-    [HttpPost]
-    public IActionResult AddToCart(AddToCartPostModel input)
-    {
-        IActionResult output;
-        if (RedirectOnDomainError(out output))
-        {
-            return output;
-        }
-        if (!PostModelHelper.IsValid(input))
-        {
-            output = RedirectToAction("AddToCart");
-            return output;
-        }
+    // [HttpPost]
+    // public IActionResult AddToCart(AddToCartPostModel input)
+    // {
+    //     IActionResult output;
+    //     if (RedirectOnDomainError(out output))
+    //     {
+    //         return output;
+    //     }
+    //     if (!PostModelHelper.IsValid(input))
+    //     {
+    //         output = RedirectToAction("AddToCart");
+    //         return output;
+    //     }
 
-        Helpers.CartHelper.AddItemToCart(_beService, input);
+    //     Helpers.CartHelper.AddItemToCart(_beService, input);
 
-        return RedirectToAction("AddToCart");
-    }
+    //     return RedirectToAction("AddToCart");
+    // }
 
 
     public IActionResult Article([FromRoute] Guid Id)
@@ -130,128 +130,127 @@ public class HomeController : Controller
         return View(vm);
     }
 
-    public IActionResult DeleteCartItem()
-    {
-        return RedirectToAction("EditCart");
-    }
+    // public IActionResult DeleteCartItem()
+    // {
+    //     return RedirectToAction("EditCart");
+    // }
 
-    [HttpPost]
-    public IActionResult DeleteCartItem(DeleteCartItemPostModel input)
-    {
-        IActionResult output;
-        if (RedirectOnDomainError(out output))
-        {
-            return output;
-        }
+    // [HttpPost]
+    // public IActionResult DeleteCartItem(DeleteCartItemPostModel input)
+    // {
+    //     IActionResult output;
+    //     if (RedirectOnDomainError(out output))
+    //     {
+    //         return output;
+    //     }
 
-        CartHelper.DeleteCartItem(_beService, input.id);
+    //     CartHelper.DeleteCartItem(_beService, input.id);
 
-        return RedirectToAction("DeleteCartItem");
-    }
+    //     return RedirectToAction("DeleteCartItem");
+    // }
 
 
 
-    public IActionResult EditCart()
-    {
-        IActionResult output;
-        if (RedirectOnDomainError(out output))
-        {
-            return output;
-        }
-        var vm = new HomeViewModel(_beService);
-        return View(vm);
-    }
+    // public IActionResult EditCart()
+    // {
+    //     IActionResult output;
+    //     if (RedirectOnDomainError(out output))
+    //     {
+    //         return output;
+    //     }
+    //     var vm = new HomeViewModel(_beService);
+    //     return View(vm);
+    // }
 
-    public IActionResult EditCartItem()
-    {
-        return RedirectToAction("EditCart");
-    }
+    // public IActionResult EditCartItem()
+    // {
+    //     return RedirectToAction("EditCart");
+    // }
 
-    [HttpPost]
-    public IActionResult EditCartItem(EditCartItemPostModel input)
-    {
-        IActionResult output;
-        if (RedirectOnDomainError(out output))
-        {
-            return output;
-        }
+    // [HttpPost]
+    // public IActionResult EditCartItem(EditCartItemPostModel input)
+    // {
+    //     IActionResult output;
+    //     if (RedirectOnDomainError(out output))
+    //     {
+    //         return output;
+    //     }
 
-        CartHelper.EditCartItem(_beService, input.id, input.amount);
+    //     CartHelper.EditCartItem(_beService, input.id, input.amount);
 
-        return RedirectToAction("EditCartItem");
-    }
+    //     return RedirectToAction("EditCartItem");
+    // }
 
-    public IActionResult PayCart()
-    {
-        IActionResult output;
-        if (RedirectOnDomainError(out output))
-        {
-            return output;
-        }
+//     public IActionResult PayCart()
+//     {
+//         IActionResult output;
+//         if (RedirectOnDomainError(out output))
+//         {
+//             return output;
+//         }
 
-        //Tom varukorg? => redirecta till startsidan
-        bool cartIsEmpty = CartHelper.GetOrCreateCart(_beService).Items.Count == 0;
-        if (cartIsEmpty)
-        {
-            return RedirectToAction("Index");
-        }
-;
-        //2. om användaren inte har en sessioncustomer-adress, redirecta till "registrera adress"
-        var sessionHasCustomerAddress = CustomerHelper.GetOrCreateCustomer(_beService).CustomerInfo is not null;
-        if (!sessionHasCustomerAddress)
-        {
-            return RedirectToAction("EditAddress");
-        }
+//         //Tom varukorg? => redirecta till startsidan
+//         bool cartIsEmpty = CartHelper.GetOrCreateCart(_beService).Items.Count == 0;
+//         if (cartIsEmpty)
+//         {
+//             return RedirectToAction("Index");
+//         }
+// ;
+//         //2. om användaren inte har en sessioncustomer-adress, redirecta till "registrera adress"
+//         var sessionHasCustomerAddress = CustomerHelper.GetOrCreateCustomer(_beService).CustomerInfo is not null;
+//         if (!sessionHasCustomerAddress)
+//         {
+//             return RedirectToAction("EditAddress");
+//         }
 
-        //3. redirecta till "verifiera adress och varukorg"
-        return RedirectToAction("VerifyAddressAndCart");
+//         //3. redirecta till "verifiera adress och varukorg"
+//         return RedirectToAction("VerifyAddressAndCart");
+//     }
 
-    }
+    // public IActionResult EditAddress()
+    // {
+    //     IActionResult output;
+    //     if (RedirectOnDomainError(out output))
+    //     {
+    //         return output;
+    //     }
 
-    public IActionResult EditAddress()
-    {
-        IActionResult output;
-        if (RedirectOnDomainError(out output))
-        {
-            return output;
-        }
+    //     //Tom varukorg? => redirecta till startsidan
+    //     // bool cartIsEmpty = CartHelper.GetOrCreateCart(_beService).Items.Count == 0;
+    //     // if (cartIsEmpty)
+    //     // {
+    //     //     return RedirectToAction("Index");
+    //     // }
 
-        //Tom varukorg? => redirecta till startsidan
-        // bool cartIsEmpty = CartHelper.GetOrCreateCart(_beService).Items.Count == 0;
-        // if (cartIsEmpty)
-        // {
-        //     return RedirectToAction("Index");
-        // }
+    //     //Om användaren har en sessioncustomer-adress, redirecta till cart pay
+    //     // var sessionHasCustomerAddress = CustomerHelper.GetOrCreateCustomer(_beService).CustomerInfo is not null;
+    //     // if (sessionHasCustomerAddress)
+    //     // {
+    //     //     return RedirectToAction("Pay", "Cart");
+    //     // }
 
-        //Om användaren har en sessioncustomer-adress, redirecta till "paycart"
-        // var sessionHasCustomerAddress = CustomerHelper.GetOrCreateCustomer(_beService).CustomerInfo is not null;
-        // if (sessionHasCustomerAddress)
-        // {
-        //     return RedirectToAction("PayCart");
-        // }
+    //     var vm = new HomeViewModel(_beService);
+    //     return View(vm);
+    // }
 
-        var vm = new HomeViewModel(_beService);
-        return View(vm);
-    }
+    // [HttpPost]
+    // public IActionResult EditAddress(EditCustomerPostModel pm)
+    // {
+    //     IActionResult output;
+    //     if (RedirectOnDomainError(out output))
+    //     {
+    //         return output;
+    //     }
 
-    [HttpPost]
-    public IActionResult EditAddress(EditAddressPostModel pm)
-    {
-        IActionResult output;
-        if (RedirectOnDomainError(out output))
-        {
-            return output;
-        }
+    //     Customer customer = CustomerHelper.GetOrCreateCustomer(_beService);
+    //     if (customer.Id == Guid.Empty)
+    //     {//not in db
+    //         //store customer and customer info in database
+    //         CustomerHelper.CreateCustomer(_beService, pm, ref customer);
+    //     }
 
-        Customer customer = CustomerHelper.GetOrCreateCustomer(_beService);
-        if (customer.Id == Guid.Empty)
-        {//not in db
-            //store customer and customer info in database
-            CustomerHelper.CreateCustomer(_beService, pm, ref customer);
-        }
-
-        return RedirectToAction("PayCart");
-    }
+    //     return RedirectToAction("Pay", "Cart");
+    // }
 
 
     public bool RedirectOnDomainError(out IActionResult action)

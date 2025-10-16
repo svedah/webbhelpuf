@@ -29,11 +29,10 @@
             </tr>
         }
     </table>
-    @* <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a> *@
     <div>
-        <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a>
+        <a asp-controller="Cart" asp-action="Edit">Ändra varukorg</a>
         |
-        <a asp-controller="Home" asp-action="PayCart">Betala</a>
+        <a asp-controller="Cart" asp-action="Pay">Betala</a>
     </div>
 }
 else

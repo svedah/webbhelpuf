@@ -23,6 +23,7 @@ public class Seeder
         if (Helpers.DomainHelper.ExtractSubDomain(_beService).Equals("localhost"))
         {
             new webbhelpuf.Data.Seed.Seeder(_beService).Seed();
+            new webbhelpuf.Data.Seed.Seeder(_beService).ClearCartsAndCustomers();
         }
     }
     //TODO: Seed admin OK
@@ -274,5 +275,16 @@ public class Seeder
             // }
         }
         await _srv.DbContext.SaveChangesAsync();
+    }
+
+    private void ClearCartsAndCustomers()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            _srv.DbContext.CartItems.RemoveRange(_srv.DbContext.CartItems);
+            _srv.DbContext.CustomerInfos.RemoveRange(_srv.DbContext.CustomerInfos);
+            _srv.DbContext.Customers.RemoveRange(_srv.DbContext.Customers);
+            _srv.DbContext.Carts.RemoveRange(_srv.DbContext.Carts);
+        }
     }
 }

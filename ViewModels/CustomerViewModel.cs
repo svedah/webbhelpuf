@@ -6,7 +6,7 @@ using webbhelpuf.Factories;
 
 namespace webbhelpuf.ViewModels;
 
-public class HomeViewModel
+public class CustomerViewModel
 {
     private readonly BeService _beService;
 
@@ -14,7 +14,7 @@ public class HomeViewModel
 
     private readonly Cart _cart;
 
-    private readonly ShopItem _shopitem; //för article-sida
+    private readonly Customer _customer;
 
     private readonly CustomerInfo _customerInfo;
 
@@ -23,7 +23,7 @@ public class HomeViewModel
     {
         get
         {
-            return false;//_customerInfo
+            return _customerInfo is not null && _customerInfo.Id != Guid.Empty;
         }
     }
 
@@ -48,32 +48,8 @@ public class HomeViewModel
                     City = "Staden",
                     Email = "epost@dressen.se",
                     Phone = "0700123456",
-                    Info = "Informationen"
+                    Info = "Information",
                 };
-            }
-        }
-    }
-
-
-    string _orderby;
-    public List<ShopItem> ItemsBySelectedOrder
-    {
-        get
-        {
-            switch (_orderby)
-            {
-                case "ItemOrder":
-                    return _shop.Items.OrderBy(e => e.Order).ToList();
-                    break;
-                case "PriceAscending":
-                    return _shop.Items.OrderBy(e => e.Price).ToList();
-                    break;
-                case "PriceDescending":
-                    return _shop.Items.OrderByDescending(e => e.Price).ToList();
-                    break;
-                default:
-                    return _shop.Items.OrderBy(e => e.Order).ToList();
-                    break;
             }
         }
     }
@@ -95,11 +71,19 @@ public class HomeViewModel
         }
     }
 
-    public ShopItem ShopItem //för article-sida
+    public int CartTotal
     {
         get
         {
-            return _shopitem;
+            int output = 0;
+            if (_cart is not null && _cart.Items is not null && Cart.Items.Count > 0)
+            {
+                foreach(CartItem cartItem in Cart.Items)
+                {
+                    output += cartItem.ShopItem.Price * cartItem.Amount;
+                }
+            }
+            return output;
         }
     }
 
@@ -126,43 +110,15 @@ public class HomeViewModel
         }
     }
 
-    public string QRTestURL
-    {
-        get
-        {
-            string str = "https://app.swish.nu/1/p/sw/?sw=0705501404&amt=100&cur=SEK&msg=ett%20litet%20test&src=qr";
-            string estr = System.Web.HttpUtility.UrlEncode(str);
-            return estr;
-        }
-    }
 
     //TODO: lägg till parameter för sorteringsordning
-    public HomeViewModel(BeService beService)
+    public CustomerViewModel(BeService beService)
     {
         _beService = beService;
         _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
         _cart = CartHelper.GetOrCreateCart(_beService);
+        _customer = CustomerHelper.GetOrCreateCustomer(beService);
         _customerInfo = CustomerHelper.GetOrCreateCustomer(beService).CustomerInfo;
 
-        _orderby = "ItemOrder";
-        _shopitem = new DataModelFactory(_beService).CreateEmptyShopItem();
-    }
-
-    public HomeViewModel(BeService beService, Guid shopItemId)
-    {
-        _beService = beService;
-        _shop = new ShopFactory(beService).BuildShopTree(SubDomain);
-        _cart = CartHelper.GetOrCreateCart(_beService);
-        _customerInfo = CustomerHelper.GetOrCreateCustomer(beService).CustomerInfo;
-
-        _orderby = "ItemOrder";
-        if (_shop.Items.Where(e => e.Id == shopItemId).Any())
-        {
-            _shopitem = _shop.Items.Where(e => e.Id == shopItemId).First();
-        }
-        else
-        {
-            _shopitem = new DataModelFactory(_beService).CreateEmptyShopItem();
-        }
     }
 }

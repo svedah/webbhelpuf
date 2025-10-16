@@ -29,7 +29,7 @@
                     @cartItem.ShopItem.Title
                 </td>
                 <td>
-                    <form asp-controller="Home" asp-action="EditCartItem">
+                    <form asp-controller="Cart" asp-action="Edit">
                         <input type="hidden" name="id" value="@cartItem.Id" />
                         <input type="number" name="amount" min="1" max="999" value="@cartItem.Amount" onchange="this.form.submit()" />
                         @* <input type="submit" value="Ändra" /> *@
@@ -39,7 +39,7 @@
                     @price
                 </td>
                 <td>
-                    <form asp-controller="Home" asp-action="DeleteCartItem">
+                    <form asp-controller="Cart" asp-action="Delete">
                         <input type="hidden" name="id" value="@cartItem.Id" />
                         <input type="submit" value="Ta Bort" />
                     </form>
@@ -52,11 +52,10 @@
         </td>
         </tr>
     </table>
-    @* <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a> *@
     <div>
-        <a asp-controller="Home" asp-action="EditCart">Ändra varukorg</a>
+        <a asp-controller="Cart" asp-action="Edit">Ändra varukorg</a>
         |
-        <a asp-controller="Home" asp-action="PayCart">Betala</a>
+        <a asp-controller="Cart" asp-action="Pay">Betala</a>
     </div>
 }
 else

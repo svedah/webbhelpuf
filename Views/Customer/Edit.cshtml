@@ -1,20 +1,13 @@
 ﻿@using Microsoft.AspNetCore.Routing.Constraints
 @using webbhelpuf.Data.Models;
 @using webbhelpuf.Shared;
-@model webbhelpuf.ViewModels.HomeViewModel;
+@model webbhelpuf.ViewModels.CustomerViewModel;
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Customer Page";
     ViewData["ShopTheme"] = Model.ShopTheme + ".css";
 }
 <h1>
-  @if (Model.HasAddress)
-  {
-    <h1>Verifiera Adress</h1>
-  }
-  else
-  {
-    <h1>Registrera Adress</h1>
-  }
+    Registrera Adress
 </h1>
 
 <div class="row">
@@ -24,9 +17,9 @@
         <h5 class="mb-0">Adressat</h5>
       </div>
       <div class="card-body">
-        <form asp-controller="Home" asp-action="EditAddress">
+        <form asp-controller="Customer" asp-action="Edit">
           <input type="hidden" name="cartid" value="@Model.Cart.Id" />
-            @if (Model.HasAddress)
+            @* @if (Model.HasAddress)
             {
                 <div class="row">
                     <div class="col">
@@ -35,7 +28,7 @@
                         </p>
                     </div>
                 </div>
-            }
+            } *@
           <div class="row mb-4">
             <div class="col">
               <div data-mdb-input-init class="form-outline">
@@ -74,7 +67,7 @@
             <div class="col">
               <div data-mdb-input-init class="form-outline">
                 <label class="form-label" for="formzipcode">Postnummer</label>
-                @{string _form_zipcode = Model.HasAddress ? Model.CustomerInfo.StreetNo : string.Empty;}
+                @{string _form_zipcode = Model.HasAddress ? Model.CustomerInfo.ZipCode : string.Empty;}
                 <input type="text" id="formzipcode" name="zipcode" class="form-control" value="@_form_zipcode" required />
               </div>
             </div>
@@ -90,19 +83,22 @@
           <!-- Email input -->
           <div data-mdb-input-init class="form-outline mb-4">
             <label class="form-label" for="formemail">Epost</label>
-            <input type="email" id="formemail" name="email" class="form-control" required />
+            @{string _form_email = Model.HasAddress ? Model.CustomerInfo.Email : string.Empty;}
+            <input type="email" id="formemail" name="email" class="form-control" value="@_form_email" required />
           </div>
 
           <!-- Number input -->
           <div data-mdb-input-init class="form-outline mb-4">
             <label class="form-label" for="formphone">Telefonnummer</label>
-            <input type="number" id="formphone" name="phone" class="form-control" />
+            @{string _form_phone = Model.HasAddress ? Model.CustomerInfo.Phone : string.Empty;}
+            <input type="number" id="formphone" name="phone" class="form-control" value="@_form_phone" />
           </div>
 
           <!-- Message input -->
           <div data-mdb-input-init class="form-outline mb-4">
             <label class="form-label" for="formaddinfo">Ytterligare information / önskemål</label>
-            <textarea class="form-control" id="formaddinfo" name="addinfo" rows="4"></textarea>
+            @{string _form_addinfo = Model.HasAddress ? Model.CustomerInfo.Info : string.Empty;}
+            <textarea class="form-control" id="formaddinfo" name="addinfo" rows="4">@_form_addinfo</textarea>
           </div>
 
           <div>

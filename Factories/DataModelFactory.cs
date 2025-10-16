@@ -64,7 +64,7 @@ public class DataModelFactory
             Id = id,
             Cart = cart,
             CustomerInfo = customerInfo,
-            CustomerState = webbhelpuf.Enums.CustomerStateEnum.test
+            CustomerState = webbhelpuf.Enums.CustomerStateEnum.none
         };
 
         _srv.DbContext.Customers.Add(customer);
@@ -83,7 +83,8 @@ public class DataModelFactory
         string zipcode,
         string city,
         string email,
-        string phone
+        string phone,
+        string info
     )
     {
         var id = Guid.NewGuid();
@@ -97,7 +98,8 @@ public class DataModelFactory
             ZipCode = zipcode,
             City = city,
             Email = email,
-            Phone = phone
+            Phone = phone,
+            Info = info
         };
 
         _srv.DbContext.CustomerInfos.Add(customerinfo);
@@ -206,7 +208,8 @@ public class DataModelFactory
             ZipCode = string.Empty,
             City = string.Empty,
             Email = string.Empty,
-            Phone = string.Empty
+            Phone = string.Empty,
+            Info = string.Empty
         };
     }
 

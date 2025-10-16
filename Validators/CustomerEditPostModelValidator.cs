@@ -5,10 +5,10 @@ using webbhelpuf.Shared;
 
 namespace webbhelpuf.Validators;
 
-public static class EditAddressPostModelValidator
+public static class CustomerEditPostModelValidator
 {
 
-    public static EditAddressPostModel Sanitize(EditAddressPostModel input)
+    public static EditCustomerPostModel Sanitize(EditCustomerPostModel input)
     {
         string sanitized_firstname = input.firstname.Trim();
         string sanitized_lastname = input.lastname.Trim();
@@ -18,8 +18,9 @@ public static class EditAddressPostModelValidator
         string sanitized_city = input.city.Trim();
         string sanitized_email = input.email.Trim();
         string sanitized_phone = (input.phone ?? string.Empty).Trim();
+        string sanitized_addinfo = (input.addinfo ?? string.Empty).Trim();
 
-        EditAddressPostModel output = new EditAddressPostModel
+        EditCustomerPostModel output = new EditCustomerPostModel
         {
             firstname = sanitized_firstname,
             lastname = sanitized_lastname,
@@ -28,13 +29,14 @@ public static class EditAddressPostModelValidator
             zipcode = sanitized_zipcode,
             city = sanitized_city,
             email = sanitized_email,
-            phone = sanitized_phone
+            phone = sanitized_phone,
+            addinfo = sanitized_addinfo
         };
 
         return output;
     }
 
-    public static bool Validate(EditAddressPostModel input)
+    public static bool Validate(EditCustomerPostModel input)
     {
         return ValidateFirstName(input.firstname) &&
                 ValidateLastName(input.lastname) &&

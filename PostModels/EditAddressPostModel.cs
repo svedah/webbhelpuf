@@ -3,7 +3,7 @@ using webbhelpuf.Shared;
 
 namespace webbhelpuf.PostModels;
 
-public class EditAddressPostModel
+public class EditCustomerPostModel
 {
     [Required]
     public Guid cartid { get; set; }
