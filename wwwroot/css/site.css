@@ -30,9 +30,31 @@ body {
   text-align: start;
 }
 
+/* BEGIN modal info button */
+.modalinfobutton {
+  border-radius: 50%;
+  padding: 0 0.5rem;
+  border: 1px solid var(--bs-btn-border-color);
+}
+/* END modal info-button */
+
+.linkinherit {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.shopitemwidth
+{
+    display: block;
+    margin: 1rem;
+    max-width: 18rem;
+    min-width: 18rem;
+    width: 18rem;
+    user-select: none;
+}
 
 /* BEGIN ShopItem_Card */
-shopitem {
+/* shopitem {
     border: 1px solid black;
     display: block;
     margin: 1rem;
@@ -64,7 +86,7 @@ shopitem {
             }
         }
     }
-}
+} */
 /* END ShopItem_Card */
 
 /* BEGIN cart */

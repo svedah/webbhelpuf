@@ -1,0 +1,246 @@
+<h2>Beställ Shop</h2>
+
+<fieldset class="form-group border p-3">
+<legend class="w-auto">Inställningar</legend>
+<form asp-controller="OrderShop" asp-action="CreateOrder">
+
+    @* UF-shoppens Titel *@
+    <div class="form-group">
+        <label  for="a" 
+                class="form-label">
+            Namn UF-shop 
+        </label>
+        <button type="button" class="btn btn-info modalinfobutton" data-bs-toggle="modal" data-bs-target="#titleModal">?</button>
+        <input  id="a" 
+                name="title" 
+                type="text" 
+                class="form-control" 
+                value="" />
+    </div>
+
+    @* UF-shoppens Mobilnummer *@
+    <div class="form-group">
+        <label  for="a" 
+                class="form-label">
+            Mobilnummer
+        </label>
+        <button type="button" class="btn btn-info modalinfobutton" data-bs-toggle="modal" data-bs-target="#mobileModal">?</button>
+        <input  id="a" 
+                name="title" 
+                type="text" 
+                class="form-control" 
+                value="" />
+    </div>
+
+    @* UF-shoppens e-post *@
+    <div class="form-group">
+        <label  for="a" 
+                class="form-label">
+            E-post
+        </label>
+        <button type="button" class="btn btn-info modalinfobutton" data-bs-toggle="modal" data-bs-target="#emailModal">?</button>
+        <input  id="a" 
+                name="title" 
+                type="email" 
+                class="form-control" 
+                value="" />
+    </div>
+
+    @* UF-shoppens Swishnummer *@
+    <div class="form-group">
+        <label  for="a" 
+                class="form-label">
+            Swishnummer
+        </label>
+        <button type="button" class="btn btn-info modalinfobutton" data-bs-toggle="modal" data-bs-target="#swishModal">?</button>
+        <input  id="a" 
+                name="title" 
+                type="text" 
+                class="form-control" 
+                value="" />
+    </div>
+
+    @* UF-shoppens Swish API Nyckel *@
+    <div class="form-group">
+        <label  for="a" 
+                class="form-label">
+            Swish API nyckel
+        </label>
+        <button type="button" class="btn btn-info modalinfobutton" data-bs-toggle="modal" data-bs-target="#swishapiModal">?</button>
+        <input  id="a" 
+                name="title" 
+                type="text" 
+                class="form-control" 
+                value="" />
+    </div>
+
+    @* UF-shoppens subdomän *@
+    <div class="form-group">
+        <label  for="a" 
+                class="form-label">
+            Subdomän
+        </label>
+        <button type="button" class="btn btn-info modalinfobutton" data-bs-toggle="modal" data-bs-target="#subdomainModal">?</button>
+        <input  id="a" 
+                name="title" 
+                type="text" 
+                class="form-control" 
+                pattern="[a-z]"
+                minlength="3"
+                maxlength="32"
+                onkeydown="return /[a-z]/i.test(event.key)"
+                value="" />
+    </div>
+    <input  type="submit" 
+            class="btn btn-primary" 
+            value="Beställ UF-shop" />
+</form>
+
+<!-- Button trigger modal -->
+@* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">?</button> *@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Title Modal -->
+<div class="modal fade" id="titleModal" tabindex="-1" aria-labelledby="titleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="titleModalLabel">Information 'Namn UF-shop'</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Här skriver ni in företagets namn.
+      </div>
+      <div class="modal-footer">
+        @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Modal -->
+<div class="modal fade" id="mobileModal" tabindex="-1" aria-labelledby="mobileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="mobileModalLabel">Information 'Mobilnummer'</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Här skriver ni in ett mobilnummer UF-företaget är nåbart på. <br />
+        Detta mobilnummer skall INTE vara samma nummer som Swish-numret.
+      </div>
+      <div class="modal-footer">
+        @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- email Modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="emailModalLabel">Information 'E-post'</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Här skriver ni in den epostadress UF-företaget är nåbart på. <br />
+        Denna epostadress kommer även användas under inloggningen på er UF-shop.
+      </div>
+      <div class="modal-footer">
+        @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- swish Modal -->
+<div class="modal fade" id="swishModal" tabindex="-1" aria-labelledby="swishModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="swishModalLabel">Information 'Swishnummer'</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Här skriver ni in det Swishnummer ert företag tar emot inbetalningar på. <br />
+      </div>
+      <div class="modal-footer">
+        @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- swishapi Modal -->
+<div class="modal fade" id="swishapiModal" tabindex="-1" aria-labelledby="swishapiModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="swishapiModalLabel">Information 'Swish API nyckel'</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Här skriver ni in er API-nyckel för Swish. <br />
+        API-nyckeln används för att kunna identifiera huruvida en betalning genomförts eller inte.
+        Det är inget krav att skriva in en API-nyckel. Utan API-nyckel måste ni manuellt verifiera 
+        huruvida kunder har betalat sina ordrar.
+      </div>
+      <div class="modal-footer">
+        @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- subdomain Modal -->
+<div class="modal fade" id="subdomainModal" tabindex="-1" aria-labelledby="subdomainModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="subdomainModalLabel">Information 'Domännamn'</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Här skriver ni in den webbadress ert företag önskar ha. <br />
+        Exempel: Skriver ni in
+                <span class="alert alert-secondary text-nowrap" style="padding: 0.125rem 0.5rem;">exempel</span>
+                kommer er webbadress bli
+                <span class="alert alert-secondary text-nowrap" style="padding: 0.125rem 0.5rem;">https://exempel.ufshop.nu/</span>
+                <br />
+                Använd endast bokstäver a-z, minst 3 bokstäver, max 32.
+      </div>
+      <div class="modal-footer">
+        @* <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> *@
+        @* <button type="button" class="btn btn-primary">Save changes</button> *@
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,9 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Shop> Shops { get; set; }
     public DbSet<ShopContactInfo> ShopContactInfos { get; set; }
     public DbSet<ShopItem> ShopItems { get; set; }
+
+    public DbSet<ShopItemProperty> ShopItemProperties { get; set; }
+    public DbSet<ShopItemPropertyOption> ShopItemPropertyOptions { get; set; }
     public DbSet<ShopSetting> ShopSettings { get; set; }
     public DbSet<ShopSocialMedia> ShopSocialMedias { get; set; }
     public DbSet<User> ShopOwners { get; set; }

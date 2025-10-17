@@ -1,0 +1,9 @@
+﻿@using webbhelpuf.Shared;
+@model webbhelpuf.ViewModels.AdminViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["ShopTheme"] = Model.ShopTheme + ".css";
+    string partialView = "_View_Home_Index_" + Model.ShopLayout;
+}
+<h1>Admin View</h1>
+<partial name="_AdminCreateShop" />

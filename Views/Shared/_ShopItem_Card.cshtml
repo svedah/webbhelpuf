@@ -3,18 +3,21 @@
     @* string link = @Model.ItemsAvailable == 0 ? "#" : "/Article/View/" + @Model.Id; *@
 }
 
-<shopitem>
-    <article>
-        <a href="/Home/Article/@Model.Id" >
-            <figure>
-                <img src="/img/items/@Model.PrimaryImage.Filename" alt="@Model.PrimaryImage.AltText" />
-            </figure>
-            <h3>@Model.Title</h3>
-            <p>@Model.Description</p>
-            <section class="d-flex justify-content-between">
-                <div>Antal: @Model.ItemsAvailable</div>
-                <div>Pris: @Model.Price SEK</div>
-            </section>
-        </a>
-    </article>
-</shopitem>
+@* https://getbootstrap.com/docs/4.0/components/card/ card with footers *@
+<div class="card shopitemwidth">
+    <a class="linkinherit" href="/Home/Article/@Model.Id">
+        <img class="card-img-top" src="/img/items/@Model.PrimaryImage.Filename" alt="@Model.PrimaryImage.AltText" />
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Description</p>
+        </div>
+        <div class="card-footer">
+            <div>
+                Antal: @Model.ItemsAvailable
+            </div>
+            <div>
+                Pris: @Model.Price SEK
+            </div>
+        </div>
+    </a>
+</div>

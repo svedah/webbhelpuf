@@ -37,5 +37,10 @@ public class TestController : Controller
         return RedirectToAction("Index");
     }
 
+    public IActionResult OrderShop()
+    {
+        // var vm = new TestViewModel(_beService);
+        return View();
+    }
 
 }

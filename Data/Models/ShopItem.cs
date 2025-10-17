@@ -12,4 +12,7 @@ public class ShopItem
     public required virtual Shop Shop { get; set; }
     public required virtual Image PrimaryImage { get; set; }
     public required virtual HashSet<Image> Images { get; set; }
+
+    public virtual HashSet<ShopItemProperty> Properties { get; set; }
 }
+
