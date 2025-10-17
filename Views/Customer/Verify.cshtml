@@ -107,10 +107,16 @@ Verifiera adress och varukorg
           </li>
         </ul>
         <div class="d-flex justify-content-center">
+          <form asp-controller="Customer" asp-action="CreateOrder">
+          <input type="hidden" name="shopid" value="@Model.Shop.Id" />
+          <input type="hidden" name="customerid" value="@Model.Customer.Id" />
+          <input type="hidden" name="cartid" value="@Model.Cart.Id" />
           <input type="submit" class="btn btn-primary btn-lg btn-block" value="Betala" />
           @* gör denna till ett formulär som skickar med cartid och customerid *@
           @* basera INTE köpet på dessa. kolla att sessions-id:na för cart o Customer *@
           @* är samma som från detta formuläret *@
+          @* qr-kod och betalknapp på vyn *@
+          </form>
         </div>
       </div>
     </div>

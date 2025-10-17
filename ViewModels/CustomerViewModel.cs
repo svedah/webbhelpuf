@@ -27,30 +27,39 @@ public class CustomerViewModel
         }
     }
 
+    public Customer Customer
+    {
+        get
+        {
+            return _customer;
+        }
+    }
+
     public CustomerInfo CustomerInfo
     {
         get
         {
-            if (_customerInfo is not null)
-            {
-                return _customerInfo;
-            }
-            else
-            {
-                return new CustomerInfo
-                {
-                    Id = Guid.Empty,
-                    FirstName = "Förnamn",
-                    LastName = "Efternamn",
-                    StreetName = "Gatan",
-                    StreetNo = "1",
-                    ZipCode = "12345",
-                    City = "Staden",
-                    Email = "epost@dressen.se",
-                    Phone = "0700123456",
-                    Info = "Information",
-                };
-            }
+            return _customerInfo;
+            // if (_customerInfo is not null)
+            // {
+            //     return _customerInfo;
+            // }
+            // else
+            // {
+            //     return new CustomerInfo
+            //     {
+            //         Id = Guid.Empty,
+            //         FirstName = "Förnamn",
+            //         LastName = "Efternamn",
+            //         StreetName = "Gatan",
+            //         StreetNo = "1",
+            //         ZipCode = "12345",
+            //         City = "Staden",
+            //         Email = "epost@dressen.se",
+            //         Phone = "0700123456",
+            //         Info = "Information",
+            //     };
+            // }
         }
     }
 
@@ -78,10 +87,11 @@ public class CustomerViewModel
             int output = 0;
             if (_cart is not null && _cart.Items is not null && Cart.Items.Count > 0)
             {
-                foreach(CartItem cartItem in Cart.Items)
+                foreach (CartItem cartItem in Cart.Items)
                 {
                     output += cartItem.ShopItem.Price * cartItem.Amount;
                 }
+                // Cart.Items.Sum(e => e.Amount * e.ShopItem.Price);
             }
             return output;
         }
@@ -119,6 +129,5 @@ public class CustomerViewModel
         _cart = CartHelper.GetOrCreateCart(_beService);
         _customer = CustomerHelper.GetOrCreateCustomer(beService);
         _customerInfo = CustomerHelper.GetOrCreateCustomer(beService).CustomerInfo;
-
     }
 }

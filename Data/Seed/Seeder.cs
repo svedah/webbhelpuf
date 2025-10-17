@@ -23,16 +23,10 @@ public class Seeder
         if (Helpers.DomainHelper.ExtractSubDomain(_beService).Equals("localhost"))
         {
             new webbhelpuf.Data.Seed.Seeder(_beService).Seed();
-            new webbhelpuf.Data.Seed.Seeder(_beService).ClearCartsAndCustomers();
+            // new webbhelpuf.Data.Seed.Seeder(_beService).ClearCartsAndCustomers();
         }
     }
-    //TODO: Seed admin OK
 
-    //TODO: Seed our shop OK
-
-    //TODO: Seed our items
-
-    //TODO: Seed example shop
 
     public void Seed()
     {
